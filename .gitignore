@@ -50,3 +50,11 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+main
+*.html
+*.css
+*.js
+*.txt
+*.jpg
+*.png
