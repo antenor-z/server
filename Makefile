@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-Wall -pedantic -g3
-SRCS=main.c help.c panic.c handleData.c server.c malloque.c
+SRCS=main.c help.c panic.c handleData.c server.c malloque.c bye.c
 OBJS=$(SRCS:.c=.o)
 EXEC=main
 
@@ -9,7 +9,7 @@ all: $(EXEC)
 $(EXEC): $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $^
 
-%.o: %.c
+%.o: %.c %.h
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:

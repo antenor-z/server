@@ -3,6 +3,7 @@
         "*.o": true
     },
     "files.associations": {
-        "handledata.h": "c"
+        "handledata.h": "c",
+        "panic.h": "c"
     }
 }

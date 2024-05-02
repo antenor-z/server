@@ -1,8 +1,11 @@
 #include "server.h"
 #include "panic.h"
+#include "bye.h"
 #include "handleData.h"
 
 int server(char* port, char* filesLocation) {
+    signal(SIGINT, bye);
+    signal(SIGUSR1, bye);
     int socketfd, conexaofd;
 
     /* Get endereço host */
@@ -39,6 +42,7 @@ int server(char* port, char* filesLocation) {
         panic(1, "Error when tried to listen to port %d", port);
     }
     printf("Listening on port %s\n", port);
+    printf("Use 'kill -s SIGUSR1 %d' to close me.\n", getpid());
 
     while(1) {
         conexaofd = 0;
