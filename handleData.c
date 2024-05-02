@@ -14,6 +14,7 @@ void handleData(int socket, char* filesLocation) {
 
     bool fileResponse = true;
     
+    /* Getting headers */
     while((n = read(socket, bufferHeaders, B_HEAD_MAX_SIZE)) > 0) {
         printf("[  Server  ] Received %d bytes\n", (int)n);
         puts("[  Client headers  ]");
@@ -23,6 +24,7 @@ void handleData(int socket, char* filesLocation) {
     }
     bufferHeaders[n-1] = '\0';
 
+    /* Getting requested file path */
     char* path = strtok(bufferHeaders, " "); 
     path = strtok(NULL, " ");               // "/some/path.html"
     path += 1;                              // Discard first '/' "some/path.html"
@@ -33,6 +35,7 @@ void handleData(int socket, char* filesLocation) {
     
     printf("[  Server  ] Requested path: '%s'\n", pathWithBase);
 
+    /* Returning header */
     FILE *fp = fopen(pathWithBase, "r");
     if (fp == NULL) {
         strcpy(headers, "HTTP/1.1 404 Not Found\n"
@@ -55,6 +58,7 @@ void handleData(int socket, char* filesLocation) {
 
     write(socket, headers, strlen(headers));
 
+    /* Returning file if it's needed */
     if (fileResponse) {
         while ((n = fread(bufferFile, 1, B_FILE_MAX_SIZE, fp)) > 0) {
             write(socket, bufferFile, n);
@@ -62,6 +66,7 @@ void handleData(int socket, char* filesLocation) {
         fclose(fp);
     }
 
+    /* Clean */
     puts("[  Server  ] Conection terminated\n");
     close(socket);
     free(headers);
