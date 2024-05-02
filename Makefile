@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-Wall -pedantic -g3
-SRCS=main.c help.c panic.c handleData.c server.c
+SRCS=main.c help.c panic.c handleData.c server.c malloque.c
 OBJS=$(SRCS:.c=.o)
 EXEC=main
 

@@ -1,11 +1,12 @@
 #include "handleData.h"
 #include "panic.h"
+#include "malloque.h"
 
 void handleData(int socket, char* filesLocation) {
     int n;
-    char* bufferHeaders = malloc(B_HEAD_MAX_SIZE);
-    char* bufferFile = malloc(B_FILE_MAX_SIZE);
-    char* headers = malloc(EIGHT_KB);
+    char* bufferHeaders = malloque(B_HEAD_MAX_SIZE);
+    char* bufferFile = malloque(B_FILE_MAX_SIZE);
+    char* headers = malloque(EIGHT_KB);
 
     memset(bufferHeaders, '\0', B_HEAD_MAX_SIZE);
     memset(bufferFile, '\0', B_FILE_MAX_SIZE);
@@ -25,7 +26,7 @@ void handleData(int socket, char* filesLocation) {
     char* path = strtok(bufferHeaders, " "); 
     path = strtok(NULL, " ");               // "/some/path.html"
     path += 1;                              // Discard first '/' "some/path.html"
-    char* pathWithBase = malloc(B_FILE_MAX_SIZE);
+    char* pathWithBase = malloque(B_FILE_MAX_SIZE);
     strcpy(pathWithBase, filesLocation);    // "base"
     strcat(pathWithBase, "/");              // "base/"
     strcat(pathWithBase, path);             // "base/some/path.html"
