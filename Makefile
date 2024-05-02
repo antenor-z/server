@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-Wall -pedantic
+CFLAGS=-Wall -pedantic -g3
 SRCS=main.c help.c panic.c handleData.c server.c
 OBJS=$(SRCS:.c=.o)
 EXEC=main
