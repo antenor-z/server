@@ -56,5 +56,5 @@ int main(int argc, char** argv) {
     // printf("BACKGROUND?: %d;\n", background);
     // printf("ROOT: %s;\n", root);
     
-    server(port);
+    server(port, root);
 }

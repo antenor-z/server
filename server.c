@@ -2,7 +2,7 @@
 #include "panic.h"
 #include "handleData.h"
 
-int server(char* port) {
+int server(char* port, char* filesLocation) {
     int socketfd, conexaofd;
 
     /* Get endereço host */
@@ -61,7 +61,7 @@ int server(char* port) {
         if (conexaofd == -1)
             continue;
         
-        handleData(conexaofd);
+        handleData(conexaofd, filesLocation);
     }
 }
 

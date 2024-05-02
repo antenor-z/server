@@ -6,4 +6,5 @@
 #include <stdbool.h>
 #define B_HEAD_MAX_SIZE 4096
 #define B_FILE_MAX_SIZE 4096
-void handleData(int fd);
+#define EIGHT_KB 1024 * 8
+void handleData(int fd, char* filesLocation);

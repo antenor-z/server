@@ -15,4 +15,4 @@ struct sockaddr_in6 cliente6;
 } tEndereco;
 
 
-int server(char* port);
+int server(char* port, char* filesLocation);
