@@ -2,6 +2,12 @@
 #include "panic.h"
 #include "bye.h"
 #include "handleData.h"
+/*
+ * Waits for TCP connection, when something arrives, make the args structure
+ * and create handleData thread passing args.
+ * Uses select() to be able to timeout accept(), so that the threads
+ * can be stoped on SIGINT or SIGUSR1
+ */
 int threadCount = 0;
 bool breakLoop = false;
 int server(char* port, char* filesLocation) {

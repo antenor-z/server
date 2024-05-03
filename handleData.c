@@ -1,7 +1,14 @@
 #include "handleData.h"
 #include "panic.h"
 #include "malloque.h"
-
+/*
+ * Thread to process each TCP connection.
+ * Get the required file.
+ * if get is for "/", will return index.html
+ * - Returns 200 OK if file exists.
+ * - Return 404 Not Found if file not exists or thres a 
+ * problem in opening the file.
+ */
 void* handleData(void* args) {
     /* Get args */
     struct handleDataArgs *a = args;

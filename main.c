@@ -1,10 +1,17 @@
+/*
+ * A4 - Server
+ * Author: Antenor Barros
+ */
 #include <getopt.h>
 #include <stdbool.h>
 #include <string.h>
 #include "help.h"
 #include "panic.h"
 #include "server.h"
-#define MAX_PATH_SIZE 2048
+/*
+ * Get the args in short and/or long form and pass to the main code
+ */
+#define MAX_PATH_SIZE 4096
 
 int main(int argc, char** argv) {
     char port[7];

@@ -1,4 +1,7 @@
 #include "help.h"
+/*
+ * Show help when using -h or --help
+ */
 
 void help() {
     puts("-p --port <porta> Número da porta do serviço");
