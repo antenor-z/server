@@ -98,7 +98,7 @@ int server(char* port, char* filesLocation) {
     }
     
     for (int i = 0; i < threadCount; i++) {
-        printf("[  Server  ]  Waiting for thread %d of %d to exit.\n", i + 1, threadCount);
+        printf("[  Server  ] Waiting for thread %d of %d to exit.\n", i + 1, threadCount);
         pthread_join(threads[i], NULL);
     }
     puts("[  Server  ] Bye");
