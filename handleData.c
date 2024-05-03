@@ -38,12 +38,18 @@ void* handleData(void* args) {
     }
     bufferHeaders[n-1] = '\0';
 
-    /* Getting requested file path */
-    char* path = strtok(bufferHeaders, " "); 
+    /* If the route is "/" answer with index.html */
+    char* path = strtok(bufferHeaders, " ");
     path = strtok(NULL, " ");               // "/some/path.html"
     path += 1;                              // Discard first '/' "some/path.html"
+    if (strcmp(path, "") == 0) {
+        strcpy(path, "index.html");
+    }
+
+    /* Getting requested file path */
     char* pathWithBase = malloque(B_FILE_MAX_SIZE);
-    strcpy(pathWithBase, filesLocation);    // "base"
+    memset(pathWithBase, '\0', B_FILE_MAX_SIZE);
+    strcat(pathWithBase, filesLocation);    // "base"
     strcat(pathWithBase, "/");              // "base/"
     strcat(pathWithBase, path);             // "base/some/path.html"
     
