@@ -2,7 +2,14 @@
 #include "panic.h"
 #include "malloque.h"
 
-void handleData(int socket, char* filesLocation) {
+void* handleData(void* args) {
+    /* Get args */
+    struct handleDataArgs *a = args;
+    int socket = a->socket;
+    char* filesLocation = a->filesLocation;
+    int threadNo = a->threadNo;
+
+    /* init */
     int n;
     char* bufferHeaders = malloque(B_HEAD_MAX_SIZE);
     char* bufferFile = malloque(B_FILE_MAX_SIZE);
@@ -16,10 +23,10 @@ void handleData(int socket, char* filesLocation) {
     
     /* Getting headers */
     while((n = read(socket, bufferHeaders, B_HEAD_MAX_SIZE)) > 0) {
-        printf("[  Server  ] Received %d bytes\n", (int)n);
-        puts("[  Client headers  ]");
+        printf("[  Thread %d  ] Received %d bytes\n", threadNo, (int)n);
+        printf("[  Thread %d  ]  BEGIN CLIENT HEADERS \n", threadNo);
         puts(bufferHeaders);
-        puts("[  End Client headers  ]");
+        printf("[  Thread %d  ]  END CLIENT HEADERS \n", threadNo);
         if (bufferHeaders[n-1] == '\n' || n > B_HEAD_MAX_SIZE - 1) break;
     }
     bufferHeaders[n-1] = '\0';
@@ -33,7 +40,7 @@ void handleData(int socket, char* filesLocation) {
     strcat(pathWithBase, "/");              // "base/"
     strcat(pathWithBase, path);             // "base/some/path.html"
     
-    printf("[  Server  ] Requested path: '%s'\n", pathWithBase);
+    printf("[  Thread %d  ] Requested path: '%s'\n", threadNo, pathWithBase);
 
     /* Returning header */
     FILE *fp = fopen(pathWithBase, "r");
@@ -45,7 +52,7 @@ void handleData(int socket, char* filesLocation) {
         "<html><head><meta charset='utf-8'><title>Não encontrado</title><body><h1>Erro 404</h1>Página não encontrada.<hr />A4-Server</body></html>"
         "\0");
         fileResponse = false;
-        puts("[  Server  ] HTTP/1.1 404 Not Found");
+        printf("[  Thread %d  ] HTTP/1.1 404 Not Found\n", threadNo);
     }
     else {
         strcpy(headers, "HTTP/1.1 200 OK\n"
@@ -53,7 +60,7 @@ void handleData(int socket, char* filesLocation) {
         "Content-Type: text/html\n"
         "\n"
         "\0");
-        printf("[  Server  ] HTTP/1.1 202 OK %s\n", path);
+        printf("[  Thread %d  ] HTTP/1.1 202 OK %s\n", threadNo, path);
     }
 
     write(socket, headers, strlen(headers));
@@ -67,10 +74,11 @@ void handleData(int socket, char* filesLocation) {
     }
 
     /* Clean */
-    puts("[  Server  ] Conection terminated\n");
+    printf("[  Thread %d  ] Conection terminated\n", threadNo);
     close(socket);
     free(headers);
     free(pathWithBase);
     free(bufferHeaders);
     free(bufferFile);
+    return NULL;
 }

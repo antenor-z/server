@@ -57,4 +57,5 @@ int main(int argc, char** argv) {
     // printf("ROOT: %s;\n", root);
     
     server(port, root);
+    return 0;
 }

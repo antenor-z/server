@@ -1,3 +1,5 @@
+#ifndef _SERVER_H_
+#define _SERVER_H_
 #include <stdio.h>
 #include <netdb.h>
 #include <stdlib.h>
@@ -7,10 +9,13 @@
 #include <signal.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <sys/select.h>
+#include <sys/time.h> 
 #include "handleData.h"
 
 #define EVER ;;
 #define MAXLISTEN 257
+#define NUM_THREADS 50
 
 typedef union {
 struct sockaddr_in cliente4;
@@ -19,3 +24,4 @@ struct sockaddr_in6 cliente6;
 
 
 int server(char* port, char* filesLocation);
+#endif

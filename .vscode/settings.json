@@ -4,6 +4,9 @@
     },
     "files.associations": {
         "handledata.h": "c",
-        "panic.h": "c"
+        "panic.h": "c",
+        "stdio.h": "c",
+        "pthread.h": "c",
+        "bye.h": "c"
     }
 }

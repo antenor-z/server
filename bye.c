@@ -1,6 +1,6 @@
 #include "bye.h"
 
+extern int breakLoop;
 void bye(){
-    puts("[  Server  ] Bye");
-    exit(0);
+    breakLoop = true;
 }
