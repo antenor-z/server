@@ -102,5 +102,6 @@ void* handleData(void* args) {
     free(pathWithBase);
     free(bufferHeaders);
     free(bufferFile);
+    free(status);
     return NULL;
 }
