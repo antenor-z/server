@@ -1,6 +1,9 @@
 #include "handleData.h"
 #include "panic.h"
 #include "malloque.h"
+#include "queue.h"
+#include "enqueue.h"
+
 /*
  * Thread to process each TCP connection.
  * Get the required file.
@@ -14,26 +17,28 @@ void* handleData(void* args) {
     struct handleDataArgs *a = args;
     int socket = a->socket;
     char* filesLocation = a->filesLocation;
-    int threadNo = a->threadNo;
+    LogQueue* queue = a->queue;
 
     /* init */
     int n;
     char* bufferHeaders = malloque(B_HEAD_MAX_SIZE);
     char* bufferFile = malloque(B_FILE_MAX_SIZE);
     char* headers = malloque(EIGHT_KB);
+    char* status = malloque(50);
 
     memset(bufferHeaders, '\0', B_HEAD_MAX_SIZE);
     memset(bufferFile, '\0', B_FILE_MAX_SIZE);
     memset(headers, '\0', EIGHT_KB);
+    memset(status, '\0', 50);
 
     bool fileResponse = true;
     
     /* Getting headers */
     while((n = read(socket, bufferHeaders, B_HEAD_MAX_SIZE)) > 0) {
-        printf("[  Thread %d  ] Received %d bytes\n", threadNo, (int)n);
-        printf("[  Thread %d  ]  BEGIN CLIENT HEADERS \n", threadNo);
+        printf("[  Thread %ld  ] Received %d bytes\n", pthread_self(), (int)n);
+        printf("[  Thread %ld  ]  BEGIN CLIENT HEADERS \n", pthread_self());
         puts(bufferHeaders);
-        printf("[  Thread %d  ]  END CLIENT HEADERS \n", threadNo);
+        printf("[  Thread %ld  ]  END CLIENT HEADERS \n", pthread_self());
         if (bufferHeaders[n-1] == '\n' || n > B_HEAD_MAX_SIZE - 1) break;
     }
     bufferHeaders[n-1] = '\0';
@@ -52,12 +57,11 @@ void* handleData(void* args) {
     strcat(pathWithBase, filesLocation);    // "base"
     strcat(pathWithBase, "/");              // "base/"
     strcat(pathWithBase, path);             // "base/some/path.html"
-    
-    printf("[  Thread %d  ] Requested path: '%s'\n", threadNo, pathWithBase);
 
     /* Returning header */
     FILE *fp = fopen(pathWithBase, "r");
     if (fp == NULL) {
+        strcpy(status, "HTTP/1.1 404 Not Found");
         strcpy(headers, "HTTP/1.1 404 Not Found\n"
         "Server: A4-Server\n"
         "Content-Type: text/html\n"
@@ -65,15 +69,16 @@ void* handleData(void* args) {
         "<html><head><meta charset='utf-8'><title>Não encontrado</title><body><h1>Erro 404</h1>Página não encontrada.<hr />A4-Server</body></html>"
         "\0");
         fileResponse = false;
-        printf("[  Thread %d  ] HTTP/1.1 404 Not Found\n", threadNo);
+        printf("[  Thread %ld  ] HTTP/1.1 404 Not Found\n", pthread_self());
     }
     else {
+        strcpy(status, "HTTP/1.1 200 OK");
         strcpy(headers, "HTTP/1.1 200 OK\n"
         "Server: A4-Server\n"
         "Content-Type: text/html\n"
         "\n"
         "\0");
-        printf("[  Thread %d  ] HTTP/1.1 202 OK %s\n", threadNo, path);
+        printf("[  Thread %ld  ] HTTP/1.1 202 OK %s\n", pthread_self(), path);
     }
 
     write(socket, headers, strlen(headers));
@@ -86,8 +91,12 @@ void* handleData(void* args) {
         fclose(fp);
     }
 
+    char* log = malloc(300 * sizeof(char));
+    sprintf(log, "[  Thread %ld  ] %s | File: %s\n", pthread_self(), status, pathWithBase);
+    enqueue(queue, log);
+
     /* Clean */
-    printf("[  Thread %d  ] Conection terminated\n", threadNo);
+    printf("[  Thread %ld  ] Conection terminated\n", pthread_self());
     close(socket);
     free(headers);
     free(pathWithBase);

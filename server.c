@@ -2,6 +2,7 @@
 #include "panic.h"
 #include "bye.h"
 #include "handleData.h"
+#include "logger.h"
 /*
  * Waits for TCP connection, when something arrives, make the args structure
  * and create handleData thread passing args.
@@ -10,6 +11,10 @@
  */
 int threadCount = 0;
 bool breakLoop = false;
+pthread_t threads[NUM_THREADS];
+LogQueue queue = { .head = NULL, .tail = NULL, .mutex = PTHREAD_MUTEX_INITIALIZER,
+                    .cond_producer = PTHREAD_COND_INITIALIZER, .cond_consumer = PTHREAD_COND_INITIALIZER };
+
 int server(char* port, char* filesLocation) {
     signal(SIGINT, bye);
     signal(SIGUSR1, bye);
@@ -52,6 +57,9 @@ int server(char* port, char* filesLocation) {
     printf("Use 'kill -s SIGUSR1 %d' to close me.\n", getpid());
 
     pthread_t threads[NUM_THREADS];
+
+    pthread_create(&threads[NUM_THREADS - 1], NULL, insertLog, (void*)&queue);
+
     while(!breakLoop) {
         conexaofd = 0;
         unsigned tamCliente;
@@ -95,7 +103,7 @@ int server(char* port, char* filesLocation) {
         struct handleDataArgs args;
         args.socket = conexaofd;
         args.filesLocation = filesLocation;
-        args.threadNo = threadCount;
+        args.queue = &queue;
 
         if (pthread_create(&threads[threadCount], NULL, &handleData, (void *)&args) != 0) {
             panic(1, "Could not create thread");

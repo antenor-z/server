@@ -7,6 +7,13 @@
         "panic.h": "c",
         "stdio.h": "c",
         "pthread.h": "c",
-        "bye.h": "c"
+        "bye.h": "c",
+        "cmath": "cpp",
+        "dequeue.h": "c",
+        "enqueue.h": "c",
+        "array": "c",
+        "deque": "c",
+        "vector": "c",
+        "string_view": "c"
     }
 }
