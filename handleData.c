@@ -20,7 +20,7 @@ void* handleData(void* args) {
     LogQueue* queue = a->queue;
     /* this queue used to history of pages accessed. It will be used
      * to make statistics later  */
-    LogQueue* stats = a->stats;
+    LogQueue* statsQueue = a->statsQueue;
 
     /* init */
     int n;
@@ -95,8 +95,8 @@ void* handleData(void* args) {
     char* log = malloc(300 * sizeof(char));
     sprintf(log, "[ Thread %ld ] %s %s \"%s\"\n", pthread_self(), datetime(), status, pathWithBase);
     puts(log);
-    enqueue(queue, log);
-    enqueue(stats, "asd");
+    // enqueue(queue, log);
+    // enqueue(statsQueue, "aasd");
 
     /* Clean */
     printf("[  Thread %ld  ] Conection terminated\n", pthread_self());

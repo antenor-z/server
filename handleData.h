@@ -17,6 +17,6 @@ struct handleDataArgs {
     int socket;
     char* filesLocation;
     LogQueue* queue;
-    LogQueue* stats;
+    LogQueue* statsQueue;
 };
 #endif

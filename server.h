@@ -12,6 +12,7 @@
 #include <sys/select.h>
 #include <sys/time.h> 
 #include "handleData.h"
+#include "stats.h"
 
 #define EVER ;;
 #define MAXLISTEN 257
@@ -23,5 +24,5 @@ struct sockaddr_in6 cliente6;
 } tEndereco;
 
 
-int server(char* port, char* filesLocation);
+int server(char* port, char* filesLocation, char* logPath);
 #endif

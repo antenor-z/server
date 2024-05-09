@@ -14,10 +14,10 @@ bool breakLoop = false;
 pthread_t threads[NUM_THREADS];
 LogQueue queue = { .head = NULL, .tail = NULL, .mutex = PTHREAD_MUTEX_INITIALIZER,
                     .cond_producer = PTHREAD_COND_INITIALIZER, .cond_consumer = PTHREAD_COND_INITIALIZER };
-LogQueue stats = { .head = NULL, .tail = NULL, .mutex = PTHREAD_MUTEX_INITIALIZER,
+LogQueue statsQueue = { .head = NULL, .tail = NULL, .mutex = PTHREAD_MUTEX_INITIALIZER,
                     .cond_producer = PTHREAD_COND_INITIALIZER, .cond_consumer = PTHREAD_COND_INITIALIZER };
 
-int server(char* port, char* filesLocation) {
+int server(char* port, char* filesLocation, char* logPath) {
     signal(SIGINT, bye);
     signal(SIGUSR1, bye);
     int socketfd, conexaofd;
@@ -61,6 +61,8 @@ int server(char* port, char* filesLocation) {
     pthread_t threads[NUM_THREADS];
 
     pthread_create(&threads[NUM_THREADS - 1], NULL, insertLog, (void*)&queue);
+    pthread_create(&threads[NUM_THREADS - 2], NULL, stats, (void*)&statsQueue);
+
 
     while(!breakLoop) {
         conexaofd = 0;
@@ -106,7 +108,7 @@ int server(char* port, char* filesLocation) {
         args.socket = conexaofd;
         args.filesLocation = filesLocation;
         args.queue = &queue;
-        args.stats = &stats;
+        args.statsQueue = &statsQueue;
 
         if (pthread_create(&threads[threadCount], NULL, &handleData, (void *)&args) != 0) {
             panic(1, "Could not create thread");
