@@ -14,11 +14,11 @@
 #define MAX_PATH_SIZE 4096
 
 int main(int argc, char** argv) {
-    char port[7];
-    char log[MAX_PATH_SIZE + 1];
-    char statistics[MAX_PATH_SIZE + 1];
+    char* port = malloque(7);
+    char* log = malloque(MAX_PATH_SIZE + 1);
+    char* statistics = malloque(MAX_PATH_SIZE + 1);
     bool background = false;
-    char root[MAX_PATH_SIZE + 1];
+    char* root = malloque(MAX_PATH_SIZE + 1);
 
     struct option options[] = {
         {"port", required_argument,         0, 'p'},
@@ -56,12 +56,21 @@ int main(int argc, char** argv) {
         }
     }
 
-
-    // printf("PORTA: %s;\n", port);
-    // printf("LOG: %s;\n", log);
-    // printf("STAT: %s;\n", statistics);
-    // printf("BACKGROUND?: %d;\n", background);
-    // printf("ROOT: %s;\n", root);
+    if (strlen(port) == 0) {
+        panic(1, "É necessário informar a porta. Use -p");
+    }
+    if (atoi(port) == 0) {
+        panic(1, "Porta inválida.");
+    }
+    if (strlen(root) == 0) {
+        panic(1, "É necessário informar o caminho da pasta fonte. Use -r");
+    }
+    if (strlen(statistics) == 0) {
+        panic(1, "É necessário informar o caminho do arquivo de estatística. Use -s");
+    }
+    if (strlen(log) == 0) {
+        panic(1, "É necessário informar o caminho do arquivo de logs. Use -l");
+    }
     
     server(port, root);
     return 0;

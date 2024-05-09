@@ -114,13 +114,14 @@ int server(char* port, char* filesLocation) {
         threadCount++;
     }
 
-    char* path;
-    do
-    {
-        path = dequeue(&stats);
-        printf("-> %s\n", path);
-    }
-    while(path != NULL);
+    // char* aaa;
+    // do
+    // {
+    //     aaa = dequeue(&stats);
+    //     printf("-> %s\n", aaa);
+    //     free(aaa);
+    // }
+    // while(aaa != NULL);
     
     
     for (int i = 0; i < threadCount; i++) {

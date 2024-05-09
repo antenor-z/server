@@ -96,7 +96,7 @@ void* handleData(void* args) {
     sprintf(log, "[ Thread %ld ] %s %s \"%s\"\n", pthread_self(), datetime(), status, pathWithBase);
     puts(log);
     enqueue(queue, log);
-    enqueue(stats, pathWithBase);
+    enqueue(stats, "asd");
 
     /* Clean */
     printf("[  Thread %ld  ] Conection terminated\n", pthread_self());
