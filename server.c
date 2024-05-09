@@ -3,6 +3,8 @@
 #include "bye.h"
 #include "handleData.h"
 #include "insertLog.h"
+#include "countStats.h"
+
 /*
  * Waits for TCP connection, when something arrives, make the args structure
  * and create handleData thread passing args.
@@ -17,7 +19,7 @@ LogQueue queue = { .head = NULL, .tail = NULL, .mutex = PTHREAD_MUTEX_INITIALIZE
 LogQueue statsQueue = { .head = NULL, .tail = NULL, .mutex = PTHREAD_MUTEX_INITIALIZER,
                     .cond_producer = PTHREAD_COND_INITIALIZER, .cond_consumer = PTHREAD_COND_INITIALIZER };
 
-int server(char* port, char* filesLocation, char* logPath) {
+int server(char* port, char* filesLocation, char* logPath, char* statsPath) {
     signal(SIGINT, bye);
     signal(SIGUSR1, bye);
     int socketfd, conexaofd;
@@ -116,15 +118,7 @@ int server(char* port, char* filesLocation, char* logPath) {
         threadCount++;
     }
 
-    // char* aaa;
-    // do
-    // {
-    //     aaa = dequeue(&stats);
-    //     printf("-> %s\n", aaa);
-    //     free(aaa);
-    // }
-    // while(aaa != NULL);
-    
+    countStats(".stats.txt", statsPath);
     
     for (int i = 0; i < threadCount; i++) {
         printf("[  Server  ] Waiting for thread %d of %d to exit.\n", i + 1, threadCount);

@@ -72,6 +72,6 @@ int main(int argc, char** argv) {
         panic(1, "É necessário informar o caminho do arquivo de logs. Use -l");
     }
     
-    server(port, root, log);
+    server(port, root, log, statistics);
     return 0;
 }

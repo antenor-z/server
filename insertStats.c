@@ -1,7 +1,7 @@
 #include "insertStats.h"
 void* insertStats(void* arg) {
     LogQueue* queue = (LogQueue*)arg;
-    FILE* file = fopen("stats.txt", "w");
+    FILE* file = fopen(".stats.txt", "w");
     if (file == NULL) {
         perror("Error opening file");
         pthread_exit(NULL);
