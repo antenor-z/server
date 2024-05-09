@@ -14,6 +14,8 @@ bool breakLoop = false;
 pthread_t threads[NUM_THREADS];
 LogQueue queue = { .head = NULL, .tail = NULL, .mutex = PTHREAD_MUTEX_INITIALIZER,
                     .cond_producer = PTHREAD_COND_INITIALIZER, .cond_consumer = PTHREAD_COND_INITIALIZER };
+LogQueue stats = { .head = NULL, .tail = NULL, .mutex = PTHREAD_MUTEX_INITIALIZER,
+                    .cond_producer = PTHREAD_COND_INITIALIZER, .cond_consumer = PTHREAD_COND_INITIALIZER };
 
 int server(char* port, char* filesLocation) {
     signal(SIGINT, bye);
@@ -104,12 +106,22 @@ int server(char* port, char* filesLocation) {
         args.socket = conexaofd;
         args.filesLocation = filesLocation;
         args.queue = &queue;
+        args.stats = &stats;
 
         if (pthread_create(&threads[threadCount], NULL, &handleData, (void *)&args) != 0) {
             panic(1, "Could not create thread");
         }
         threadCount++;
     }
+
+    char* path;
+    do
+    {
+        path = dequeue(&stats);
+        printf("-> %s\n", path);
+    }
+    while(path != NULL);
+    
     
     for (int i = 0; i < threadCount; i++) {
         printf("[  Server  ] Waiting for thread %d of %d to exit.\n", i + 1, threadCount);

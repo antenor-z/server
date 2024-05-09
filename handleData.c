@@ -18,6 +18,9 @@ void* handleData(void* args) {
     int socket = a->socket;
     char* filesLocation = a->filesLocation;
     LogQueue* queue = a->queue;
+    /* this queue used to history of pages accessed. It will be used
+     * to make statistics later  */
+    LogQueue* stats = a->stats;
 
     /* init */
     int n;
@@ -69,7 +72,6 @@ void* handleData(void* args) {
         "<html><head><meta charset='utf-8'><title>Não encontrado</title><body><h1>Erro 404</h1>Página não encontrada.<hr />A4-Server</body></html>"
         "\0");
         fileResponse = false;
-        printf("[  Thread %ld  ] HTTP/1.1 404 Not Found\n", pthread_self());
     }
     else {
         strcpy(status, "HTTP/1.1 200 OK");
@@ -78,7 +80,6 @@ void* handleData(void* args) {
         "Content-Type: text/html\n"
         "\n"
         "\0");
-        printf("[  Thread %ld  ] HTTP/1.1 202 OK %s\n", pthread_self(), path);
     }
 
     write(socket, headers, strlen(headers));
@@ -92,8 +93,10 @@ void* handleData(void* args) {
     }
 
     char* log = malloc(300 * sizeof(char));
-    sprintf(log, "[  Thread %ld  ] %s | File: %s\n", pthread_self(), status, pathWithBase);
+    sprintf(log, "[ Thread %ld ] %s %s \"%s\"\n", pthread_self(), datetime(), status, pathWithBase);
+    puts(log);
     enqueue(queue, log);
+    enqueue(stats, pathWithBase);
 
     /* Clean */
     printf("[  Thread %ld  ] Conection terminated\n", pthread_self());

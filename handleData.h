@@ -8,6 +8,7 @@
 #include <stdbool.h>
 #include <pthread.h>
 #include "queue.h"
+#include "datetime.h"
 #define B_HEAD_MAX_SIZE 4096
 #define B_FILE_MAX_SIZE 4096
 #define EIGHT_KB 1024 * 8
@@ -16,5 +17,6 @@ struct handleDataArgs {
     int socket;
     char* filesLocation;
     LogQueue* queue;
+    LogQueue* stats;
 };
 #endif

@@ -2,9 +2,6 @@
 char* dequeue(LogQueue* queue) {
     pthread_mutex_lock(&queue->mutex);
     if (queue->head == NULL) {
-        pthread_cond_wait(&queue->cond_consumer, &queue->mutex);
-    }
-    if (queue->head == NULL) {
         pthread_mutex_unlock(&queue->mutex);
         return NULL;
     }
