@@ -1,5 +1,5 @@
-#include "stats.h"
-void* stats(void* arg) {
+#include "insertStats.h"
+void* insertStats(void* arg) {
     LogQueue* queue = (LogQueue*)arg;
     FILE* file = fopen("stats.txt", "w");
     if (file == NULL) {

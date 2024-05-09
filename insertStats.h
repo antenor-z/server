@@ -4,5 +4,5 @@
 #include <stdlib.h>
 #include "queue.h"
 #include "dequeue.h"
-void* stats(void* arg);
+void* insertStats(void* arg);
 #endif

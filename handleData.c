@@ -92,11 +92,13 @@ void* handleData(void* args) {
         fclose(fp);
     }
 
-    char* log = malloc(300 * sizeof(char));
+    char* log = malloque(300);
     sprintf(log, "[ Thread %ld ] %s %s \"%s\"\n", pthread_self(), datetime(), status, pathWithBase);
     puts(log);
-    // enqueue(queue, log);
-    // enqueue(statsQueue, "aasd");
+    enqueue(queue, log);
+    char* p = malloque(300);
+    sprintf(p, "%s\n", pathWithBase);
+    enqueue(statsQueue, p);
 
     /* Clean */
     printf("[  Thread %ld  ] Conection terminated\n", pthread_self());

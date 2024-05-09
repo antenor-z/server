@@ -18,6 +18,7 @@
         "stats.h": "c",
         "logger.h": "c",
         "queue.h": "c",
-        "stdbool.h": "c"
+        "stdbool.h": "c",
+        "insertlog.h": "c"
     }
 }

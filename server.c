@@ -2,7 +2,7 @@
 #include "panic.h"
 #include "bye.h"
 #include "handleData.h"
-#include "logger.h"
+#include "insertLog.h"
 /*
  * Waits for TCP connection, when something arrives, make the args structure
  * and create handleData thread passing args.
@@ -61,7 +61,7 @@ int server(char* port, char* filesLocation, char* logPath) {
     pthread_t threads[NUM_THREADS];
 
     pthread_create(&threads[NUM_THREADS - 1], NULL, insertLog, (void*)&queue);
-    pthread_create(&threads[NUM_THREADS - 2], NULL, stats, (void*)&statsQueue);
+    pthread_create(&threads[NUM_THREADS - 2], NULL, insertStats, (void*)&statsQueue);
 
 
     while(!breakLoop) {

@@ -1,4 +1,4 @@
-#include "logger.h"
+#include "insertLog.h"
 void* insertLog(void* arg) {
     LogQueue* queue = (LogQueue*)arg;
     FILE* file = fopen("logs.txt", "w");
