@@ -23,6 +23,9 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath) {
     signal(SIGINT, bye);
     signal(SIGUSR1, bye);
     int socketfd, conexaofd;
+    struct insertLogArgs logArgs;
+    logArgs.queue = &queue;
+    logArgs.logPath = logPath;
 
     /* Get endereço host */
     struct addrinfo *enderecoHost, dicas;
@@ -62,7 +65,7 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath) {
 
     pthread_t threads[NUM_THREADS];
 
-    pthread_create(&threads[NUM_THREADS - 1], NULL, insertLog, (void*)&queue);
+    pthread_create(&threads[NUM_THREADS - 1], NULL, insertLog, (void*)&logArgs);
     pthread_create(&threads[NUM_THREADS - 2], NULL, insertStats, (void*)&statsQueue);
 
 

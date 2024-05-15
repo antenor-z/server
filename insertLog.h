@@ -4,5 +4,10 @@
 #include <stdlib.h>
 #include "queue.h"
 #include "dequeue.h"
+#include "panic.h"
 void* insertLog(void* arg);
+struct insertLogArgs {
+    LogQueue* queue;
+    char* logPath;
+};
 #endif
