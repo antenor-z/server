@@ -1,7 +1,7 @@
 #include "insertLog.h"
 void* insertLog(void* arg) {
     LogQueue* queue = (LogQueue*)arg;
-    FILE* file = fopen("logs.txt", "w");
+    FILE* file = fopen("logs.txt", "a");
     if (file == NULL) {
         perror("Error opening file");
         pthread_exit(NULL);
