@@ -1,7 +1,7 @@
 #include "enqueue.h"
 void enqueue(LogQueue* queue, char* log) {
     pthread_mutex_lock(&queue->mutex);
-    Node* newNode = (Node*)malloc(sizeof(Node));
+    Node* newNode = (Node*)malloque(sizeof(Node));
     newNode->log = log;
     newNode->next = NULL;
     if (queue->tail == NULL) {
