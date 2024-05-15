@@ -28,14 +28,12 @@ Content-Type: text/html \
         Página não encontrada. \
         <hr />A4-Server \
     </body> \
-</html> \
-\0"
+</html>"
 #define OK_HEADERS \
 "HTTP/1.1 200 OK\n \
 Server: A4-Server\n \
 Content-Type: text/html\n \
-\n\n \
-\0"
+\n\n"
 
 void* handleData(void* args);
 struct handleDataArgs {
