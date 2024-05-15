@@ -65,21 +65,12 @@ void* handleData(void* args) {
     FILE *fp = fopen(pathWithBase, "r");
     if (fp == NULL) {
         strcpy(status, "HTTP/1.1 404 Not Found");
-        strcpy(headers, "HTTP/1.1 404 Not Found\n"
-        "Server: A4-Server\n"
-        "Content-Type: text/html\n"
-        "\n"
-        "<html><head><meta charset='utf-8'><title>Não encontrado</title><body><h1>Erro 404</h1>Página não encontrada.<hr />A4-Server</body></html>"
-        "\0");
+        strcpy(headers, NOT_FOUND_CONTENT);
         fileResponse = false;
     }
     else {
         strcpy(status, "HTTP/1.1 200 OK");
-        strcpy(headers, "HTTP/1.1 200 OK\n"
-        "Server: A4-Server\n"
-        "Content-Type: text/html\n"
-        "\n"
-        "\0");
+        strcpy(headers, OK_HEADERS);
     }
 
     write(socket, headers, strlen(headers));
