@@ -42,9 +42,9 @@ void* insertStats(void* arg) {
             AccessedPageNode* currentNode = accessedPagesList.first;
             while (currentNode != NULL) {
                 if (currentNode->numberOfAccess > 1)
-                    fprintf(file, "%5d acessos: %s\n", currentNode->numberOfAccess, currentNode->page);
+                    fprintf(file, "%d acessos: %s\n", currentNode->numberOfAccess, currentNode->page);
                 else
-                    fprintf(file, "%5d acesso:  %s\n", currentNode->numberOfAccess, currentNode->page);
+                    fprintf(file, "%d acesso:  %s\n", currentNode->numberOfAccess, currentNode->page);
                 currentNode = currentNode->next;
             }
             fclose(file);
