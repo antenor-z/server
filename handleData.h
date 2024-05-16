@@ -9,6 +9,10 @@
 #include <pthread.h>
 #include "queue.h"
 #include "datetime.h"
+#include "panic.h"
+#include "malloque.h"
+#include "enqueue.h"
+#include "debug.h"
 #define B_HEAD_MAX_SIZE 4096
 #define B_FILE_MAX_SIZE 4096
 #define EIGHT_KB 1024 * 8

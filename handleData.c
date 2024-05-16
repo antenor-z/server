@@ -1,8 +1,4 @@
 #include "handleData.h"
-#include "panic.h"
-#include "malloque.h"
-#include "queue.h"
-#include "enqueue.h"
 
 /*
  * Thread to process each TCP connection.
@@ -38,10 +34,10 @@ void* handleData(void* args) {
     
     /* Getting headers */
     while((n = read(socket, bufferHeaders, B_HEAD_MAX_SIZE)) > 0) {
-        printf("[  Thread %ld  ] Received %d bytes\n", pthread_self(), (int)n);
-        printf("[  Thread %ld  ]  BEGIN CLIENT HEADERS \n", pthread_self());
-        puts(bufferHeaders);
-        printf("[  Thread %ld  ]  END CLIENT HEADERS \n", pthread_self());
+        debug("[  Thread %ld  ] Received %d bytes", pthread_self(), (int)n);
+        debug("[  Thread %ld  ] ----- BEGIN CLIENT HEADERS -----", pthread_self());
+        debug("%s", bufferHeaders);
+        debug("[  Thread %ld  ] ----- END CLIENT HEADERS -----", pthread_self());
         if (bufferHeaders[n-1] == '\n' || n > B_HEAD_MAX_SIZE - 1) break;
     }
     bufferHeaders[n-1] = '\0';
@@ -92,7 +88,7 @@ void* handleData(void* args) {
     enqueue(statsQueue, p);
 
     /* Clean */
-    printf("[  Thread %ld  ] Conection terminated\n", pthread_self());
+    debug("[  Thread %ld  ] Conection terminated\n", pthread_self());
     close(socket);
     free(headers);
     free(pathWithBase);
