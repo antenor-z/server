@@ -122,8 +122,6 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath) {
         }
         enqueue(&threadsQueue, &newThread);
     }
-
-    countStats(".stats.txt", statsPath);
     
     printf("[  Server  ] Waiting to for threads to die\n");
     pthread_t* ptrThreadToBeWaited;
