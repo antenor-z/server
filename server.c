@@ -125,13 +125,14 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath) {
 
     countStats(".stats.txt", statsPath);
     
-    pthread_t threadToBeWaited;
-    void* ptrThreadToBeWaited;
-    while((ptrThreadToBeWaited = dequeue(&threadsQueue)) != NULL){
-        printf("[  Server  ] Waiting for thread %p\n", ptrThreadToBeWaited);
-        threadToBeWaited = *((pthread_t*)(threadToBeWaited));
-        pthread_join(threadToBeWaited, NULL);
+    printf("[  Server  ] Waiting to for threads to die\n");
+    pthread_t* ptrThreadToBeWaited;
+    while (threadsQueue.head != NULL) {
+        ptrThreadToBeWaited = dequeue(&threadsQueue);
+        printf(".");
+        pthread_join(*ptrThreadToBeWaited, NULL);
     }
+    printf("\n");
     puts("[  Server  ] Bye");
     return 0;
 }
