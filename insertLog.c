@@ -3,7 +3,7 @@ extern char* _logPath;
 void* insertLog(void* arg) {
     struct insertLogArgs *a = arg;
     char* logPath = a->logPath;
-    LogQueue* queue = a->queue;
+    Queue* queue = a->queue;
     while (1) {
         FILE* file = fopen(logPath, "a");
         if (file == NULL) {

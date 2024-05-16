@@ -7,7 +7,7 @@
 #include "panic.h"
 void* insertLog(void* arg);
 struct insertLogArgs {
-    LogQueue* queue;
+    Queue* queue;
     char* logPath;
 };
 #endif

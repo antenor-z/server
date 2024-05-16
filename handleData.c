@@ -17,10 +17,10 @@ void* handleData(void* args) {
     struct handleDataArgs *a = args;
     int socket = a->socket;
     char* filesLocation = a->filesLocation;
-    LogQueue* queue = a->queue;
+    Queue* queue = a->queue;
     /* this queue used to history of pages accessed. It will be used
      * to make statistics later  */
-    LogQueue* statsQueue = a->statsQueue;
+    Queue* statsQueue = a->statsQueue;
 
     /* init */
     int n;

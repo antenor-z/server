@@ -2,5 +2,5 @@
 #define _DEQUEUE_H_
 #include <stdlib.h>
 #include "queue.h"
-char* dequeue(LogQueue* queue);
+void* dequeue(Queue* queue);
 #endif

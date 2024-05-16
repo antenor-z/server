@@ -39,7 +39,7 @@ void* handleData(void* args);
 struct handleDataArgs {
     int socket;
     char* filesLocation;
-    LogQueue* queue;
-    LogQueue* statsQueue;
+    Queue* queue;
+    Queue* statsQueue;
 };
 #endif

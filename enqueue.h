@@ -2,5 +2,5 @@
 #define _ENQUEUE_H
 #include "queue.h"
 #include "malloque.h"
-void enqueue(LogQueue* queue, char* log);
+void enqueue(Queue* queue, void* item);
 #endif

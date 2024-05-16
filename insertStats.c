@@ -3,7 +3,7 @@
 AccessedPagesList accessedPagesList = {.first = NULL};
 
 void* insertStats(void* arg) {
-    LogQueue* queue = (LogQueue*)arg;
+    Queue* queue = (Queue*)arg;
     while (1) {
         char* log = (char*)dequeue(queue);
         if (log != NULL) {

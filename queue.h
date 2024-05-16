@@ -3,7 +3,7 @@
 #include <pthread.h>
 
 typedef struct Node {
-    char* log;
+    void* item;
     struct Node* next;
 } Node;
 
@@ -12,5 +12,5 @@ typedef struct {
     Node* tail;
     pthread_mutex_t mutex;
     pthread_cond_t cond_producer, cond_consumer;
-} LogQueue;
+} Queue;
 #endif
