@@ -88,7 +88,7 @@ void* handleData(void* args) {
     puts(log);
     enqueue(queue, log);
     char* p = malloque(300);
-    sprintf(p, "%s\n", pathWithBase);
+    sprintf(p, "%s", pathWithBase);
     enqueue(statsQueue, p);
 
     /* Clean */

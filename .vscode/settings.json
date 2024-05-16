@@ -19,6 +19,8 @@
         "logger.h": "c",
         "queue.h": "c",
         "stdbool.h": "c",
-        "insertlog.h": "c"
+        "insertlog.h": "c",
+        "stdlib.h": "c",
+        "string.h": "c"
     }
 }
