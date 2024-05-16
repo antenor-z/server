@@ -3,7 +3,6 @@
 #include "bye.h"
 #include "handleData.h"
 #include "insertLog.h"
-#include "countStats.h"
 
 /*
  * Waits for TCP connection, when something arrives, make the args structure
