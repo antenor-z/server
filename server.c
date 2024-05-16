@@ -11,12 +11,13 @@
  * Uses select() to be able to timeout accept(), so that the threads
  * can be stoped on SIGINT or SIGUSR1
  */
-int threadCount = 0;
 bool breakLoop = false;
 pthread_t threads[NUM_THREADS];
 LogQueue queue = { .head = NULL, .tail = NULL, .mutex = PTHREAD_MUTEX_INITIALIZER,
                     .cond_producer = PTHREAD_COND_INITIALIZER, .cond_consumer = PTHREAD_COND_INITIALIZER };
 LogQueue statsQueue = { .head = NULL, .tail = NULL, .mutex = PTHREAD_MUTEX_INITIALIZER,
+                    .cond_producer = PTHREAD_COND_INITIALIZER, .cond_consumer = PTHREAD_COND_INITIALIZER };
+LogQueue threadsQueue = { .head = NULL, .tail = NULL, .mutex = PTHREAD_MUTEX_INITIALIZER,
                     .cond_producer = PTHREAD_COND_INITIALIZER, .cond_consumer = PTHREAD_COND_INITIALIZER };
 
 int server(char* port, char* filesLocation, char* logPath, char* statsPath) {
@@ -115,17 +116,21 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath) {
         args.queue = &queue;
         args.statsQueue = &statsQueue;
 
-        if (pthread_create(&threads[threadCount], NULL, &handleData, (void *)&args) != 0) {
+        pthread_t newThread;
+        if (pthread_create(&newThread, NULL, &handleData, (void *)&args) != 0) {
             panic(1, "Could not create thread");
         }
-        threadCount++;
+        enqueue(&threadsQueue, &newThread);
     }
 
     countStats(".stats.txt", statsPath);
     
-    for (int i = 0; i < threadCount; i++) {
-        printf("[  Server  ] Waiting for thread %d of %d to exit.\n", i + 1, threadCount);
-        pthread_join(threads[i], NULL);
+    pthread_t threadToBeWaited;
+    void* ptrThreadToBeWaited;
+    while((ptrThreadToBeWaited = dequeue(&threadsQueue)) != NULL){
+        printf("[  Server  ] Waiting for thread %p\n", ptrThreadToBeWaited);
+        threadToBeWaited = *((pthread_t*)(threadToBeWaited));
+        pthread_join(threadToBeWaited, NULL);
     }
     puts("[  Server  ] Bye");
     return 0;

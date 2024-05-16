@@ -13,10 +13,12 @@
 #include <sys/time.h> 
 #include "handleData.h"
 #include "insertStats.h"
+#include "enqueue.h"
+#include "dequeue.h"
 
 #define EVER ;;
 #define MAXLISTEN 257
-#define NUM_THREADS 50
+#define NUM_THREADS 1000
 
 typedef union {
 struct sockaddr_in cliente4;
