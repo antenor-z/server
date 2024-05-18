@@ -23,12 +23,8 @@ void* handleData(void* args) {
     char* bufferHeaders = malloque(B_HEAD_MAX_SIZE);
     char* bufferFile = malloque(B_FILE_MAX_SIZE);
     char* headers = malloque(EIGHT_KB);
-    char* status = malloque(50);
+    char* status = malloque(100);
 
-    memset(bufferHeaders, '\0', B_HEAD_MAX_SIZE);
-    memset(bufferFile, '\0', B_FILE_MAX_SIZE);
-    memset(headers, '\0', EIGHT_KB);
-    memset(status, '\0', 50);
 
     bool fileResponse = true;
     
@@ -52,7 +48,6 @@ void* handleData(void* args) {
 
     /* Getting requested file path */
     char* pathWithBase = malloque(B_FILE_MAX_SIZE);
-    memset(pathWithBase, '\0', B_FILE_MAX_SIZE);
     strcat(pathWithBase, filesLocation);    // "base"
     strcat(pathWithBase, "/");              // "base/"
     strcat(pathWithBase, path);             // "base/some/path.html"
