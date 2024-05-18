@@ -22,6 +22,11 @@ typedef struct _accessedPages
     AccessedPageNode* first;
 } AccessedPagesList;
 
+typedef struct {
+    Queue* queue;
+    char* logPath;
+} insertStatsArgs;
+
 void* insertStats(void* arg);
 
 #endif

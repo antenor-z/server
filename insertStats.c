@@ -3,7 +3,9 @@
 AccessedPagesList accessedPagesList = {.first = NULL};
 
 void* insertStats(void* arg) {
-    Queue* queue = (Queue*)arg;
+    insertStatsArgs *a = arg;
+    char* logPath = a->logPath;
+    Queue* queue = a->queue;
     while (1) {
         char* log = (char*)dequeue(queue);
         if (log != NULL) {
@@ -35,7 +37,7 @@ void* insertStats(void* arg) {
                 }
             }
 
-            FILE* file = fopen(".stats.txt", "w");
+            FILE* file = fopen(logPath, "w");
             if (file == NULL) {
                 panic(1, "Error opening file");
             }

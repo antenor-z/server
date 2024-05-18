@@ -6,8 +6,8 @@
 #include "dequeue.h"
 #include "panic.h"
 void* insertLog(void* arg);
-struct insertLogArgs {
+typedef struct {
     Queue* queue;
     char* logPath;
-};
+} insertLogArgs;
 #endif

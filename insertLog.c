@@ -1,7 +1,7 @@
 #include "insertLog.h"
 extern char* _logPath; 
 void* insertLog(void* arg) {
-    struct insertLogArgs *a = arg;
+    insertLogArgs *a = arg;
     char* logPath = a->logPath;
     Queue* queue = a->queue;
     while (1) {

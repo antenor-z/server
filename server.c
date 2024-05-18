@@ -3,6 +3,7 @@
 #include "bye.h"
 #include "handleData.h"
 #include "insertLog.h"
+#include "insertStats.h"
 
 /*
  * Waits for TCP connection, when something arrives, make the args structure
@@ -12,7 +13,7 @@
  */
 bool breakLoop = false;
 pthread_t threads[NUM_THREADS];
-Queue queue = { .head = NULL, .tail = NULL, .mutex = PTHREAD_MUTEX_INITIALIZER,
+Queue logQueue = { .head = NULL, .tail = NULL, .mutex = PTHREAD_MUTEX_INITIALIZER,
                     .cond_producer = PTHREAD_COND_INITIALIZER, .cond_consumer = PTHREAD_COND_INITIALIZER };
 Queue statsQueue = { .head = NULL, .tail = NULL, .mutex = PTHREAD_MUTEX_INITIALIZER,
                     .cond_producer = PTHREAD_COND_INITIALIZER, .cond_consumer = PTHREAD_COND_INITIALIZER };
@@ -23,9 +24,13 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath) {
     signal(SIGINT, bye);
     signal(SIGUSR1, bye);
     int socketfd, conexaofd;
-    struct insertLogArgs logArgs;
-    logArgs.queue = &queue;
+    insertLogArgs logArgs;
+    logArgs.queue = &logQueue;
     logArgs.logPath = logPath;
+
+    insertStatsArgs statsArgs;
+    statsArgs.queue = &statsQueue;
+    statsArgs.logPath = statsPath;
 
     /* Get endereço host */
     struct addrinfo *enderecoHost, dicas;
@@ -66,7 +71,7 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath) {
     pthread_t threads[NUM_THREADS];
 
     pthread_create(&threads[NUM_THREADS - 1], NULL, insertLog, (void*)&logArgs);
-    pthread_create(&threads[NUM_THREADS - 2], NULL, insertStats, (void*)&statsQueue);
+    pthread_create(&threads[NUM_THREADS - 2], NULL, insertStats, (void*)&statsArgs);
 
 
     while(!breakLoop) {
@@ -112,7 +117,7 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath) {
         struct handleDataArgs args;
         args.socket = conexaofd;
         args.filesLocation = filesLocation;
-        args.queue = &queue;
+        args.queue = &logQueue;
         args.statsQueue = &statsQueue;
 
         pthread_t newThread;
