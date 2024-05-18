@@ -21,6 +21,8 @@
         "stdbool.h": "c",
         "insertlog.h": "c",
         "stdlib.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "server.h": "c",
+        "datetime.h": "c"
     }
 }

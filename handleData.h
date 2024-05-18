@@ -14,7 +14,7 @@
 #include "enqueue.h"
 #include "debug.h"
 #define B_HEAD_MAX_SIZE 4096
-#define B_FILE_MAX_SIZE 4096
+#define B_FILE_MAX_SIZE 2048
 #define EIGHT_KB 1024 * 8
 #define NOT_FOUND_CONTENT \
 "HTTP/1.1 404 Not Found \

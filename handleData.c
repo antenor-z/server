@@ -42,7 +42,7 @@ void* handleData(void* args) {
     char* path = strtok(bufferHeaders, " ");
     path = strtok(NULL, " ");               // "/some/path.html"
     path += 1;                              // Discard first '/' "some/path.html"
-    if (strcmp(path, "") == 0) {
+    if (strlen(path) == 0) {
         strcpy(path, "index.html");
     }
 
