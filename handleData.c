@@ -48,7 +48,7 @@ void* handleData(void* args) {
 
     /* Getting requested file path */
     char* pathWithBase = malloque(B_FILE_MAX_SIZE);
-    strcat(pathWithBase, filesLocation);    // "base"
+    strcpy(pathWithBase, filesLocation);    // "base"
     strcat(pathWithBase, "/");              // "base/"
     strcat(pathWithBase, path);             // "base/some/path.html"
 
