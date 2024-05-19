@@ -41,8 +41,8 @@ void* handleData(void* args) {
     /* If the route is "/" answer with index.html */
     char* path = strtok(bufferHeaders, " ");
     path = strtok(NULL, " ");               // "/some/path.html"
-    path += 1;                              // Discard first '/' "some/path.html"
-    if (strlen(path) == 0) {
+    // path += 1;                              // Discard first '/' "some/path.html"
+    if (strncmp(path, "/", 4096) == 0) {
         strcpy(path, "index.html");
     }
 
