@@ -41,7 +41,7 @@ void* handleData(void* args) {
     char path[1024];
     sscanf(bufferHeaders, "%*s %s %*s", path);
     /* If the route is "/" answer with index.html */
-    if (strlen(path) == 1) {
+    if (strcmp(path, "/") == 0) {
         strcpy(path, "/index.html");
     }
     char* pathWithBase = malloque(strlen(path) + strlen(filesLocation) + 1);

@@ -12,7 +12,7 @@ urls = [('http://localhost:5000', 27),
 def make_request(url, number_of_hits):
     for _ in range(int(number_of_hits)):
         try:
-            requests.get(url, timeout=3)
+            requests.get(url, timeout=15)
         except requests.exceptions.RequestException as e:
             print(f"Request failed: {e}")
         # wait between 0.0001 and 0.1 s
