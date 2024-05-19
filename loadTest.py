@@ -6,7 +6,7 @@ import random
 
 urls = [('http://localhost:5000', 27), 
         ('http://localhost:5000/aaa', 42), 
-        ('http://localhost:5000/a.html', 12),
+        ('http://localhost:5000/a.html', 59),
         ('http://localhost:5000/s.html', 19)]
 
 def make_request(url, number_of_hits):
