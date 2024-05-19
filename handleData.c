@@ -38,19 +38,15 @@ void* handleData(void* args) {
     }
     bufferHeaders[n-1] = '\0';
 
+    char path[1024];
+    sscanf(bufferHeaders, "%*s %s %*s", path);
     /* If the route is "/" answer with index.html */
-    char* path = strtok(bufferHeaders, " ");
-    path = strtok(NULL, " ");               // "/some/path.html"
-    // path += 1;                              // Discard first '/' "some/path.html"
-    if (strncmp(path, "/", 4096) == 0) {
-        strcpy(path, "index.html");
+    if (strlen(path) == 1) {
+        strcpy(path, "/index.html");
     }
+    char* pathWithBase = malloque(strlen(path) + strlen(filesLocation) + 1);
+    sprintf(pathWithBase, "%s%s", filesLocation, path);
 
-    /* Getting requested file path */
-    char* pathWithBase = malloque(B_FILE_MAX_SIZE);
-    strcpy(pathWithBase, filesLocation);    // "base"
-    strcat(pathWithBase, "/");              // "base/"
-    strcat(pathWithBase, path);             // "base/some/path.html"
 
     /* Returning header */
     FILE *fp = fopen(pathWithBase, "r");
