@@ -65,14 +65,17 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath) {
     if (listen(socketfd, MAXLISTEN) == -1) {
         panic(1, "Error when tried to listen to port %d", port);
     }
-    printf("Listening on port %s\n", port);
-    printf("Use 'kill -s SIGUSR1 %d' to close me.\n", getpid());
 
     pthread_t threads[NUM_THREADS];
 
     pthread_create(&threads[NUM_THREADS - 1], NULL, insertLog, (void*)&logArgs);
     pthread_create(&threads[NUM_THREADS - 2], NULL, insertStats, (void*)&statsArgs);
 
+    puts(LOGO);
+    printf("This is A4-Server running on port %s. Use 'kill -s SIGUSR1 %d' to close me.\n", port, getpid());
+    printf(" - Serving files from: '%s'\n", filesLocation);
+    printf(" - Log file is saved on '%s'\n", logPath);
+    printf(" - Statistics file is saved on '%s'\n", statsPath);
 
     while(!breakLoop) {
         conexaofd = 0;
