@@ -11,6 +11,7 @@ void enqueue(Queue* queue, void* item) {
         queue->tail->next = newNode;
         queue->tail = newNode;
     }
+    debug("Insert on queue %p: element '%s'\n", queue, (char*)item);
     pthread_cond_signal(&queue->cond_consumer);
     pthread_mutex_unlock(&queue->mutex);
 }
