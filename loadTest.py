@@ -4,7 +4,7 @@ from time import sleep
 import requests
 import random
 
-urls = [('http://localhost:5000', 100), 
+urls = [('http://localhost:5000/', 100), 
         ('http://localhost:5000/aaa', 100), 
         ('http://localhost:5000/a.html', 100),
         ('http://localhost:5000/s.html', 100)]

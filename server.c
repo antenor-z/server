@@ -18,7 +18,7 @@ Queue statsQueue;
 Queue threadsQueue;
 
 
-int server(char* port, char* filesLocation, char* logPath, char* statsPath) {
+int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool background) {
     queueInit(&logQueue);
     queueInit(&statsQueue);
     queueInit(&threadsQueue);
@@ -73,11 +73,26 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath) {
     pthread_create(&threads[NUM_THREADS - 1], NULL, insertLog, (void*)&logArgs);
     pthread_create(&threads[NUM_THREADS - 2], NULL, insertStats, (void*)&statsArgs);
 
+    if (background) {
+        pid_t pid = fork();
+        if (pid < 0) {
+            panic(1, "Error when forking process");
+        }
+        if (pid > 0) {
+            exit(0);
+        }
+    }
     printf("This is A4-Server running on port %s. Use 'kill -s SIGUSR1 %d' to close me.\n\n", port, getpid());
     printf(" - Serving files from: '%s'\n", filesLocation);
     printf(" - Log file is saved on '%s'\n", logPath);
     printf(" - Statistics file is saved on '%s'\n", statsPath);
-
+    if (background) {
+        printf(" - Background mode is set\n");
+        close(STDIN_FILENO);
+        close(STDOUT_FILENO);
+        close(STDERR_FILENO);
+    }
+    
     while(!breakLoop) {
         conexaofd = 0;
         unsigned tamCliente;

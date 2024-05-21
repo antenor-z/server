@@ -27,5 +27,5 @@ struct sockaddr_in6 cliente6;
 } tEndereco;
 
 
-int server(char* port, char* filesLocation, char* logPath, char* statsPath);
+int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool background);
 #endif

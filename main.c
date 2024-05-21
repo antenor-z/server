@@ -8,6 +8,7 @@
 #include "help.h"
 #include "panic.h"
 #include "server.h"
+#include <unistd.h>
 /*
  * Get the args in short and/or long form and pass to the main code
  */
@@ -72,6 +73,6 @@ int main(int argc, char** argv) {
         panic(1, "É necessário informar o caminho do arquivo de logs. Use -l");
     }
     
-    server(port, root, log, statistics);
+    server(port, root, log, statistics, background);
     return 0;
 }
