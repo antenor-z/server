@@ -16,7 +16,7 @@ def make_request(url, number_of_hits):
         except requests.exceptions.RequestException as e:
             print(f"Request failed: {e}")
         # wait between 0.0001 and 0.1 s
-        #sleep(random.randrange(1, 100) / 1000)
+        sleep(random.randrange(100, 1000) / 1000)
 
 threads = []
 

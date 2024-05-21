@@ -74,7 +74,7 @@ void* handleData(void* args) {
 
     char* log = malloque(300);
     sprintf(log, "[ Thread %ld ] %s (%s) %s \"%s\"\n", pthread_self(), datetime(), hostaddr, status, pathWithBase);
-    puts(log);
+    printf("%s", log);
     enqueue(queue, log);
     char* p = malloque(300);
     sprintf(p, "%s", pathWithBase);
