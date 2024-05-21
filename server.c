@@ -13,14 +13,16 @@
  */
 bool breakLoop = false;
 pthread_t threads[NUM_THREADS];
-Queue logQueue = { .head = NULL, .tail = NULL, .mutex = PTHREAD_MUTEX_INITIALIZER,
-                    .cond_producer = PTHREAD_COND_INITIALIZER, .cond_consumer = PTHREAD_COND_INITIALIZER };
-Queue statsQueue = { .head = NULL, .tail = NULL, .mutex = PTHREAD_MUTEX_INITIALIZER,
-                    .cond_producer = PTHREAD_COND_INITIALIZER, .cond_consumer = PTHREAD_COND_INITIALIZER };
-Queue threadsQueue = { .head = NULL, .tail = NULL, .mutex = PTHREAD_MUTEX_INITIALIZER,
-                    .cond_producer = PTHREAD_COND_INITIALIZER, .cond_consumer = PTHREAD_COND_INITIALIZER };
+Queue logQueue;
+Queue statsQueue;
+Queue threadsQueue;
+
 
 int server(char* port, char* filesLocation, char* logPath, char* statsPath) {
+    queueInit(&logQueue);
+    queueInit(&statsQueue);
+    queueInit(&threadsQueue);
+
     signal(SIGINT, bye);
     signal(SIGUSR1, bye);
     int socketfd, conexaofd;

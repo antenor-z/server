@@ -1,4 +1,5 @@
 #include "enqueue.h"
+
 void enqueue(Queue* queue, void* item) {
     pthread_mutex_lock(&queue->mutex);
     Node* newNode = (Node*)malloque(sizeof(Node));

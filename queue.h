@@ -13,4 +13,7 @@ typedef struct {
     pthread_mutex_t mutex;
     pthread_cond_t cond_producer, cond_consumer;
 } Queue;
+
+void queueInit(Queue* queue);
+
 #endif

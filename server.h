@@ -15,6 +15,7 @@
 #include "insertStats.h"
 #include "enqueue.h"
 #include "dequeue.h"
+#include "queue.h"
 
 #define EVER ;;
 #define MAXLISTEN 257
