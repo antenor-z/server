@@ -71,8 +71,7 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath) {
     pthread_create(&threads[NUM_THREADS - 1], NULL, insertLog, (void*)&logArgs);
     pthread_create(&threads[NUM_THREADS - 2], NULL, insertStats, (void*)&statsArgs);
 
-    puts(LOGO);
-    printf("This is A4-Server running on port %s. Use 'kill -s SIGUSR1 %d' to close me.\n", port, getpid());
+    printf("This is A4-Server running on port %s. Use 'kill -s SIGUSR1 %d' to close me.\n\n", port, getpid());
     printf(" - Serving files from: '%s'\n", filesLocation);
     printf(" - Log file is saved on '%s'\n", logPath);
     printf(" - Statistics file is saved on '%s'\n", statsPath);
