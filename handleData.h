@@ -45,5 +45,7 @@ struct handleDataArgs {
     char* filesLocation;
     Queue* queue;
     Queue* statsQueue;
+    char* hostname;
+    char* hostaddr;
 };
 #endif

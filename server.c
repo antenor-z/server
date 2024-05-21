@@ -116,13 +116,13 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath) {
                     tamCliente, hostaddr, sizeof hostaddr,
                     NULL, 0, NI_NUMERICHOST);
 
-        printf("Server connected to %s (%s)\n", hostname, hostaddr);
-
         struct handleDataArgs args;
         args.socket = conexaofd;
         args.filesLocation = filesLocation;
         args.queue = &logQueue;
         args.statsQueue = &statsQueue;
+        args.hostname = hostname;
+        args.hostaddr = hostaddr;
 
         pthread_t newThread;
         if (pthread_create(&newThread, NULL, &handleData, (void *)&args) != 0) {

@@ -17,6 +17,8 @@ void* handleData(void* args) {
     /* this queue used to history of pages accessed. It will be used
      * to make statistics later  */
     Queue* statsQueue = a->statsQueue;
+    // char* hostname = a->hostname;
+    char* hostaddr = a->hostaddr;
 
     /* init */
     int n;
@@ -71,7 +73,7 @@ void* handleData(void* args) {
     }
 
     char* log = malloque(300);
-    sprintf(log, "[ Thread %ld ] %s %s \"%s\"\n", pthread_self(), datetime(), status, pathWithBase);
+    sprintf(log, "[ Thread %ld ] %s (%s) %s \"%s\"\n", pthread_self(), datetime(), hostaddr, status, pathWithBase);
     puts(log);
     enqueue(queue, log);
     char* p = malloque(300);
