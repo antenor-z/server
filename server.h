@@ -16,6 +16,9 @@
 #include "enqueue.h"
 #include "dequeue.h"
 #include "queue.h"
+#include "panic.h"
+#include "bye.h"
+#include "insertLog.h"
 
 #define EVER ;;
 #define MAXLISTEN 257

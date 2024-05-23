@@ -1,9 +1,4 @@
 #include "server.h"
-#include "panic.h"
-#include "bye.h"
-#include "handleData.h"
-#include "insertLog.h"
-#include "insertStats.h"
 
 /*
  * Waits for TCP connection, when something arrives, make the args structure

@@ -1,7 +1,9 @@
 #include "debug.h"
 
 /*
- * Show debug message
+ * Show debug message. If SHOW_DEBUG_MESSAGES is not
+ * defined the debug function is replaced by an empty
+ * function.
  */
 
 #ifdef SHOW_DEBUG_MESSAGES

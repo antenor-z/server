@@ -1,5 +1,4 @@
 #include "enqueue.h"
-#include "malloque.h"
 
 void enqueue(Queue* queue, void* item) {
     pthread_mutex_lock(&queue->mutex);

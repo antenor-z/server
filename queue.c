@@ -1,5 +1,4 @@
 #include "queue.h"
-#include <stdlib.h>
 
 void queueInit(Queue* queue) {
     queue->head = NULL;

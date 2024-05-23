@@ -1,5 +1,4 @@
 #include "dequeue.h"
-#include <stdlib.h>
 
 void* dequeue(Queue* queue) {
     pthread_mutex_lock(&queue->mutex);

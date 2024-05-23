@@ -1,5 +1,4 @@
 #include "malloque.h"
-#include "panic.h"
 
 /*
  * Safe malloc

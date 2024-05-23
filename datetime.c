@@ -1,6 +1,9 @@
 #include "datetime.h"
 
 char* datetime() {
+    /*
+     * Get current formated datetime
+     */
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
     char *ret = malloque(25);
