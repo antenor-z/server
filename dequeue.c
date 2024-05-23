@@ -13,7 +13,6 @@ void* dequeue(Queue* queue) {
         queue->tail = NULL;
     }
     free(temp);
-    pthread_cond_signal(&queue->cond_producer);
     pthread_mutex_unlock(&queue->mutex);
     debug("Consuming on queue %p: element '%s'\n", queue, (char*)item);
     return item;
