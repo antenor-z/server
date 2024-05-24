@@ -81,7 +81,7 @@ void* handleData(void* args) {
     enqueue(statsQueue, p);
 
     /* Clean */
-    debug("[  Thread %ld  ] Conection terminated\n", pthread_self());
+    debug("[  Thread %ld  ] Conection terminated", pthread_self());
     close(socket);
     free(headers);
     free(pathWithBase);

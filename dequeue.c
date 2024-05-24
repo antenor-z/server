@@ -13,6 +13,6 @@ void* dequeue(Queue* queue) {
     }
     free(temp);
     pthread_mutex_unlock(&queue->mutex);
-    debug("Consuming on queue %p: element '%s'\n", queue, (char*)item);
+    debug("Consuming on queue %p: element '%s'", queue, (char*)item);
     return item;
 }
