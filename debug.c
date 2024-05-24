@@ -6,15 +6,14 @@
  * function.
  */
 
-#ifdef SHOW_DEBUG_MESSAGES
+extern bool isVerbose;
+
 void debug(const char* message, ...) {
-    va_list args;
-    va_start(args, message);
-    vfprintf(stderr, message, args);
-    fputs("\n", stderr);
-    va_end(args);
+    if (isVerbose) {
+        va_list args;
+        va_start(args, message);
+        vfprintf(stderr, message, args);
+        fputs("\n", stderr);
+        va_end(args);
+    }
 }
-#endif
-#ifndef SHOW_DEBUG_MESSAGES
-void debug(const char* message, ...) {}
-#endif

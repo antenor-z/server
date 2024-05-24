@@ -3,8 +3,8 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
-#define SHOW_DEBUG_MESSAGES
 void debug(const char* message, ...);
 
 #endif
