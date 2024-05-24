@@ -6,7 +6,8 @@
  * function.
  */
 
-extern bool isVerbose;
+
+bool isVerbose;
 
 void debug(const char* message, ...) {
     if (isVerbose) {

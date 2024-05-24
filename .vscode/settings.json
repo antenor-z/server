@@ -23,6 +23,7 @@
         "stdlib.h": "c",
         "string.h": "c",
         "server.h": "c",
-        "datetime.h": "c"
+        "datetime.h": "c",
+        "debug.h": "c"
     }
 }

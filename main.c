@@ -14,13 +14,15 @@
  */
 #define MAX_PATH_SIZE 4096
 
+extern bool isVerbose;
+
 int main(int argc, char** argv) {
     char* port = malloque(7);
     char* log = malloque(MAX_PATH_SIZE + 1);
     char* statistics = malloque(MAX_PATH_SIZE + 1);
     bool background = false;
     char* root = malloque(MAX_PATH_SIZE + 1);
-    bool isVerbose = false;
+    isVerbose = false;
 
     struct option options[] = {
         {"port", required_argument,         0, 'p'},
