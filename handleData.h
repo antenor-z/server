@@ -17,27 +17,27 @@
 #define B_FILE_MAX_SIZE 2048
 #define EIGHT_KB 1024 * 8
 #define NOT_FOUND_CONTENT \
-"HTTP/1.1 404 Not Found \
-Server: A4-Server \
-Content-Type: text/html \
-\n\n \
-<!DOCTYPE html> \
-<html> \
-    <head> \
-        <meta charset='utf-8'> \
-        <title>Não encontrado</title> \
-    </head> \
-    <body> \
-        <h1>Erro 404</h1> \
-        Página não encontrada. \
-        <hr />A4-Server \
-    </body> \
-</html>"
+"HTTP/1.1 404 Not Found\n\
+Server: A4-Server\n\
+Content-Type: text/html\n\
+Content-Length: 229\n\
+\n\
+<!DOCTYPE html>\n\
+<html>\n\
+    <head>\n\
+        <meta charset='utf-8'>\n\
+        <title>Não encontrado</title>\n\
+    </head>\n\
+    <body>\n\
+        <h1>Erro 404</h1>\n\
+        Página não encontrada.\n\
+        <hr />A4-Server\n\
+    </body>\n\
+</html>\n"
 #define OK_HEADERS \
-"HTTP/1.1 200 OK\n \
-Server: A4-Server\n \
-Content-Type: text/html\n \
-\n\n"
+"HTTP/1.1 200 OK\n\
+Server: A4-Server\n\
+Content-Type: text/html\n"
 
 void* handleData(void* args);
 struct handleDataArgs {
@@ -49,3 +49,4 @@ struct handleDataArgs {
     char* hostaddr;
 };
 #endif
+#define SEPARATOR "\n"

@@ -60,6 +60,16 @@ void* handleData(void* args) {
     else {
         strcpy(status, "HTTP/1.1 200 OK");
         strcpy(headers, OK_HEADERS);
+        
+        fseek(fp, 0L, SEEK_END);
+        long int fsize = ftell(fp);
+        fseek(fp, 0L, 0);
+
+        char strContentLen[40];
+        sprintf(strContentLen, "Content-Length: %ld\n", fsize);
+        strcat(headers, strContentLen);
+
+        strcat(headers, SEPARATOR);
     }
 
     write(socket, headers, strlen(headers));
