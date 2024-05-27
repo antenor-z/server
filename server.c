@@ -77,10 +77,12 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
             exit(0);
         }
     }
-    printf("This is A4-Server running on port %s. Use 'kill -s SIGUSR1 %d' to close me.\n\n", port, getpid());
-    printf(" - Serving files from: '%s'\n", filesLocation);
-    printf(" - Log file is saved on '%s'\n", logPath);
-    printf(" - Statistics file is saved on '%s'\n", statsPath);
+                     
+    printf("\n%s  This is A4-Server running on port %s.\n", LINE_1, port);
+    printf("%s  Use 'kill -s SIGUSR1 %d' to close me.\n%s\n", LINE_2, getpid(), LINE_3);
+    printf("%s  - Serving files from: '%s'\n", LINE_4, filesLocation);
+    printf("%s  - Log file is saved on '%s'\n", LINE_5, logPath);
+    printf("%s  - Statistics file is saved on '%s'\n", LINE_6, statsPath);
     if (background) {
         printf(" - Background mode is set\n");
         close(STDIN_FILENO);
