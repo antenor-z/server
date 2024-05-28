@@ -81,5 +81,10 @@ int main(int argc, char** argv) {
     }
     
     server(port, root, log, statistics, background);
+
+    free(port);
+    free(log);
+    free(statistics);
+    free(root);
     return 0;
 }
