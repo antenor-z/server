@@ -24,6 +24,7 @@
         "string.h": "c",
         "server.h": "c",
         "datetime.h": "c",
-        "debug.h": "c"
+        "debug.h": "c",
+        "insertstats.h": "c"
     }
 }

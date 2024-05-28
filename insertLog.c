@@ -4,6 +4,7 @@ void* insertLog(void* arg) {
     insertLogArgs *a = arg;
     char* logPath = a->logPath;
     Queue* queue = a->queue;
+    debug("Insert log consumer created: %s", logPath);
     while (1) {
         FILE* file = fopen(logPath, "a");
         if (file == NULL) {

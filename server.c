@@ -38,6 +38,7 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
     if (getaddrinfo(NULL, port, &dicas, &enderecoHost) != 0) {
         panic(1, "No information from server");
     }
+    debug("Host: %s", enderecoHost);
 
     /* Socket */
     socketfd = socket(enderecoHost->ai_family,
