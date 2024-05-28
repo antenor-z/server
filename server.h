@@ -20,11 +20,11 @@
 #include "bye.h"
 #include "insertLog.h"
 
-#define LINE_1 " ######   ##    ## "
-#define LINE_2 "##    ##  ##    ## "
-#define LINE_3 "########  ######## "
-#define LINE_4 "##    ##        ## "
-#define LINE_5 "##    ##        ## "
+#define LINE_1 " ██████   ██    ██ "
+#define LINE_2 "██    ██  ██    ██ "
+#define LINE_3 "████████  ████████ "
+#define LINE_4 "██    ██        ██ "
+#define LINE_5 "██    ██        ██ "
 #define LINE_6 "                   "
 #define EVER ;;
 #define MAXLISTEN 257
