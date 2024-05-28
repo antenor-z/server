@@ -60,3 +60,4 @@ main
 *.png
 a4server
 *.log
+test/*

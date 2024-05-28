@@ -30,6 +30,9 @@ void getFileType(char* pathWithBase, char* ret) {
     else if (strcmp(strFileExtension, "ico") == 0) {
         strcpy(ret, "Content-Type: image/x-icon\n");
     }
+    else if (strcmp(strFileExtension, "pdf") == 0) {
+        strcpy(ret, "Content-Type: application/pdf\n");
+    }
     else {
         strcpy(ret, "Content-Type: text/html\n");
     }
