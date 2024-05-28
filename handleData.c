@@ -40,14 +40,23 @@ void* handleData(void* args) {
     }
     bufferHeaders[n-1] = '\0';
 
-    char path[1024];
-    sscanf(bufferHeaders, "%*s %s %*s", path);
+    char path[1024] = {0};  
+    if (sscanf(bufferHeaders, "%*s %1023s %*s", path) != 1) { 
+        strcpy(path, "/");
+    }
+
     /* If the route is "/" answer with index.html */
     if (strcmp(path, "/") == 0) {
         strcpy(path, "/index.html");
     }
+
     char* pathWithBase = malloque(strlen(path) + strlen(filesLocation) + 1);
     sprintf(pathWithBase, "%s%s", filesLocation, path);
+
+    /* Ensure the pathWithBase is valid */
+    if (strlen(pathWithBase) == 0 || strstr(pathWithBase, "..")) {
+        strcpy(pathWithBase, "/index.html");  // Default to index.html on invalid paths
+    }
 
 
     /* Returning header */
