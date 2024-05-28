@@ -20,9 +20,10 @@ def make_request(url, number_of_hits):
 
 threads = []
 
+NUMBER_OF_THREADS = 10
 for (url, number_of_hits) in urls:
-    for _ in range(10):
-        thread = threading.Thread(target=make_request, args=(url, number_of_hits / 10))
+    for _ in range(NUMBER_OF_THREADS):
+        thread = threading.Thread(target=make_request, args=(url, number_of_hits / NUMBER_OF_THREADS))
         threads.append(thread)
         thread.start()
 
