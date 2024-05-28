@@ -13,6 +13,7 @@
 #include "malloque.h"
 #include "enqueue.h"
 #include "debug.h"
+#include "getFileType.h"
 #define B_HEAD_MAX_SIZE 4096
 #define B_FILE_MAX_SIZE 2048
 #define EIGHT_KB 1024 * 8
@@ -36,8 +37,7 @@ Content-Length: 229\n\
 </html>\n"
 #define OK_HEADERS \
 "HTTP/1.1 200 OK\n\
-Server: A4-Server\n\
-Content-Type: text/html\n"
+Server: A4-Server\n"
 
 void* handleData(void* args);
 struct handleDataArgs {

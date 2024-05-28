@@ -61,6 +61,7 @@ void* handleData(void* args) {
         strcpy(status, "HTTP/1.1 200 OK");
         strcpy(headers, OK_HEADERS);
         
+        /* Get Content-Length */
         fseek(fp, 0L, SEEK_END);
         long int fsize = ftell(fp);
         fseek(fp, 0L, 0);
@@ -68,6 +69,11 @@ void* handleData(void* args) {
         char strContentLen[40];
         sprintf(strContentLen, "Content-Length: %ld\n", fsize);
         strcat(headers, strContentLen);
+
+        /* Set file type */
+        char strContentType[40];
+        getFileType(pathWithBase, strContentType);
+        strcat(headers, strContentType);
 
         strcat(headers, SEPARATOR);
     }
