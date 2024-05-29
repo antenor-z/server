@@ -19,4 +19,4 @@ clean:
 	rm -f $(EXEC) $(OBJS)
 
 run: ${EXEC}
-	./${EXEC} -p ${PORT} -r ${ROOT_DIR} -l log.log -s stats.txt
+	./${EXEC} -p ${PORT} -r ${ROOT_DIR} -l ./log.log -s ./stats.txt
