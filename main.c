@@ -58,34 +58,34 @@ int main(int argc, char** argv) {
 
     /* Check for mandatory args */
     if (strlen(port) == 0) {
-        panic(1, "É necessário informar a porta. Use -p");
+        panic(1, "É necessário informar a porta. Ex.: -p 5000");
     }
     if (atoi(port) == 0) {
-        panic(1, "Porta inválida.");
+        panic(1, "Porta inválida. Ex.: -p 5000");
     }
     if (strlen(root) == 0) {
-        panic(1, "É necessário informar o caminho da pasta fonte. Use -r");
+        panic(1, "É necessário informar o caminho da pasta fonte. Ex.: -r ./test");
     }
     if (strlen(statistics) == 0) {
-        panic(1, "É necessário informar o caminho do arquivo de estatística. Use -s");
+        panic(1, "É necessário informar o caminho do arquivo de estatística. Ex.: -s stats.txt");
     }
     if (strlen(log) == 0) {
-        panic(1, "É necessário informar o caminho do arquivo de logs. Use -l");
+        panic(1, "É necessário informar o caminho do arquivo de logs. Ex.: -l log.log");
     }
 
     /* Sanitization */
     char* s = port;
     while (*s) {
-    	if (isdigit(*s++) == 0) panic(1, "A porta informada é inválida. Deve ser um número.");
+    	if (isdigit(*s++) == 0) panic(1, "A porta informada é inválida. Deve ser um número. Ex.: -p 5000");
     }
 
     int portI = atoi(port);
     if (portI < 0 || portI >= 65535) {
-	panic(1, "A porta informada é inválida. Deve estar entre 0 e 65535.");
+	panic(1, "A porta informada é inválida. Deve estar entre 0 e 65535. Ex. -p 5000");
     }
 
     if (opendir(root) == 0) {
-	panic(1, "O caminho da pasta fonte é inválido.");
+	panic(1, "O caminho da pasta fonte é inválido. Ex.: -r ./test");
     }
 
     if (!isValidPath(log)) {
