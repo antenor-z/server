@@ -15,6 +15,9 @@ void getFileType(char* pathWithBase, char* ret) {
     else if (strcmp(strFileExtension, "jpg") == 0 || strcmp(strFileExtension, "jpeg") == 0) {
         strcpy(ret, "Content-Type: image/jpeg\n");
     }
+    else if (strcmp(strFileExtension, "htm") == 0 || strcmp(strFileExtension, "html") == 0) {
+        strcpy(ret, "Content-Type: text/html\n");
+    }
     else if (strcmp(strFileExtension, "gif") == 0) {
         strcpy(ret, "Content-Type: image/gif\n");
     }
@@ -34,6 +37,6 @@ void getFileType(char* pathWithBase, char* ret) {
         strcpy(ret, "Content-Type: application/pdf\n");
     }
     else {
-        strcpy(ret, "Content-Type: text/html\n");
+        strcpy(ret, "Content-Type: text/plain\n");
     }
 }
