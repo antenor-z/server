@@ -2,19 +2,11 @@
  * A4 - Server
  * Author: Antenor Barros
  */
-#include <getopt.h>
-#include <stdbool.h>
-#include <string.h>
-#include "help.h"
-#include "panic.h"
-#include "server.h"
-#include <unistd.h>
+
+#include "main.h"
 /*
  * Get the args in short and/or long form and pass to the main code
  */
-#define MAX_PATH_SIZE 4096
-
-extern bool isVerbose;
 
 int main(int argc, char** argv) {
     char* port = malloque(7);
@@ -64,6 +56,7 @@ int main(int argc, char** argv) {
         }
     }
 
+    /* Check for mandatory args */
     if (strlen(port) == 0) {
         panic(1, "É necessário informar a porta. Use -p");
     }
@@ -78,6 +71,31 @@ int main(int argc, char** argv) {
     }
     if (strlen(log) == 0) {
         panic(1, "É necessário informar o caminho do arquivo de logs. Use -l");
+    }
+
+    /* Sanitization */
+    char* s = port;
+    while (*s) {
+    	if (isdigit(*s++) == 0) panic(1, "A porta informada é inválida. Deve ser um número.");
+    }
+
+    int portI = atoi(port);
+    if (portI < 0 || portI >= 65535) {
+	panic(1, "A porta informada é inválida. Deve estar entre 0 e 65535.");
+    }
+
+    if (opendir(root) == 0) {
+	panic(1, "O caminho da pasta fonte é inválido.");
+    }
+
+    if (!isValidPath(log)) {
+	panic(1, "O caminho da pasta de arquivos de logs é inválido. Ex.: ./log.log");
+
+    }
+
+    if (!isValidPath(statistics)) {
+	panic(1, "O caminho da pasta de arquivos de estatísticas é inválido. Ex.: ./stats.txt");
+
     }
     
     server(port, root, log, statistics, background);

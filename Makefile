@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-Wall -pedantic -g3
 SRCS=main.c help.c panic.c handleData.c server.c malloque.c bye.c insertLog.c enqueue.c \
-dequeue.c datetime.c insertStats.c debug.c queue.c getFileType.c
+dequeue.c datetime.c insertStats.c debug.c queue.c getFileType.c isValidPath.c
 OBJS=$(SRCS:.c=.o)
 EXEC=a4server
 PORT=5000
