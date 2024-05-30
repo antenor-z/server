@@ -11,6 +11,7 @@
 #include <unistd.h>
 #include <sys/select.h>
 #include <sys/time.h> 
+#include <fcntl.h>
 #include "handleData.h"
 #include "insertStats.h"
 #include "enqueue.h"

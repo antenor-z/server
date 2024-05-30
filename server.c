@@ -85,10 +85,14 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
     printf("%s  - Log file is saved on '%s'\n", LINE_5, logPath);
     printf("%s  - Statistics file is saved on '%s'\n", LINE_6, statsPath);
     if (background) {
-        printf(" - Background mode is set\n");
-        close(STDIN_FILENO);
-        close(STDOUT_FILENO);
-        close(STDERR_FILENO);
+        printf("%s  - Background mode is set\n", LINE_6);
+        int dev_null = open("/dev/null", O_RDWR);
+        if (dev_null == -1) {
+            panic(1, "Error opening /dev/null");
+        }
+        dup2(dev_null, STDIN_FILENO);
+        dup2(dev_null, STDOUT_FILENO);
+        dup2(dev_null, STDERR_FILENO);
     }
     
     while(!breakLoop) {
