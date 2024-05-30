@@ -1,8 +1,8 @@
 #include "insertStats.h"
 
-AccessedPagesList accessedPagesList = {.first = NULL};
-
 void* insertStats(void* arg) {
+    AccessedPagesList accessedPagesList = {.first = NULL};
+
     insertStatsArgs *a = arg;
     char* logPath = a->logPath;
     Queue* queue = a->queue;

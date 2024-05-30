@@ -7,13 +7,13 @@
  * can be stoped on SIGINT or SIGUSR1
  */
 bool breakLoop = false;
-pthread_t threads[NUM_THREADS];
-Queue logQueue;
-Queue statsQueue;
-Queue threadsQueue;
-
 
 int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool background) {
+    pthread_t threads[NUM_THREADS];
+    Queue logQueue;
+    Queue statsQueue;
+    Queue threadsQueue;
+
     queueInit(&logQueue);
     queueInit(&statsQueue);
     queueInit(&threadsQueue);
@@ -63,8 +63,6 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
     if (listen(socketfd, MAXLISTEN) == -1) {
         panic(1, "Error when tried to listen to port %d", port);
     }
-
-    pthread_t threads[NUM_THREADS];
 
     if (logPath != NULL) {
         pthread_create(&threads[NUM_THREADS - 1], NULL, insertLog, (void*)&logArgs);
@@ -177,5 +175,3 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
     puts("[  Server  ] Bye");
     return 0;
 }
-
-

@@ -1,5 +1,4 @@
 #include "insertLog.h"
-extern char* _logPath; 
 void* insertLog(void* arg) {
     insertLogArgs *a = arg;
     char* logPath = a->logPath;
