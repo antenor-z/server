@@ -66,8 +66,16 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
 
     pthread_t threads[NUM_THREADS];
 
-    pthread_create(&threads[NUM_THREADS - 1], NULL, insertLog, (void*)&logArgs);
-    pthread_create(&threads[NUM_THREADS - 2], NULL, insertStats, (void*)&statsArgs);
+    if (logPath != NULL) {
+        pthread_create(&threads[NUM_THREADS - 1], NULL, insertLog, (void*)&logArgs);
+    }
+    else {
+        debug("Log deactivated");
+    }
+    if (statsPath != NULL) {
+        pthread_create(&threads[NUM_THREADS - 2], NULL, insertStats, (void*)&statsArgs);
+        debug("Stats deactivated");
+    }
 
     if (background) {
         pid_t pid = fork();
@@ -82,8 +90,18 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
     printf("\n%s  This is A4-Server running on port %s.\n", LINE_1, port);
     printf("%s  Use 'kill -s SIGUSR1 %d' to close me.\n%s\n", LINE_2, getpid(), LINE_3);
     printf("%s  - Serving files from: '%s'\n", LINE_4, filesLocation);
-    printf("%s  - Log file is saved on '%s'\n", LINE_5, logPath);
-    printf("%s  - Statistics file is saved on '%s'\n", LINE_6, statsPath);
+    if (logPath != NULL) {
+        printf("%s  - Log file is saved on '%s'\n", LINE_5, logPath);
+    }
+    else {
+        printf("%s  - Log file not activated\n", LINE_5);
+    }
+    if (statsPath != NULL) {
+        printf("%s  - Statistics file is saved on '%s'\n", LINE_6, statsPath);
+    }
+    else {
+        printf("%s  - Statistics file not activated\n", LINE_6);
+    }
     if (background) {
         printf("%s  - Background mode is set\n", LINE_6);
         int dev_null = open("/dev/null", O_RDWR);

@@ -67,10 +67,10 @@ int main(int argc, char** argv) {
         panic(1, "É necessário informar o caminho da pasta fonte. Ex.: -r ./test");
     }
     if (strlen(statistics) == 0) {
-        panic(1, "É necessário informar o caminho do arquivo de estatística. Ex.: -s stats.txt");
+        statistics = NULL;
     }
     if (strlen(log) == 0) {
-        panic(1, "É necessário informar o caminho do arquivo de logs. Ex.: -l log.log");
+        log = NULL;
     }
 
     /* Sanitization */
@@ -81,21 +81,19 @@ int main(int argc, char** argv) {
 
     int portI = atoi(port);
     if (portI < 0 || portI >= 65535) {
-	panic(1, "A porta informada é inválida. Deve estar entre 0 e 65535. Ex. -p 5000");
+        panic(1, "A porta informada é inválida. Deve estar entre 0 e 65535. Ex. -p 5000");
     }
 
     if (opendir(root) == 0) {
-	panic(1, "O caminho da pasta fonte é inválido. Ex.: -r ./test");
+	    panic(1, "O caminho da pasta fonte é inválido. Ex.: -r ./test");
     }
 
-    if (!isValidPath(log)) {
-	panic(1, "O caminho da pasta de arquivos de logs é inválido. Ex.: ./log.log");
-
+    if (log != NULL && !isValidPath(log)) {
+	    panic(1, "O caminho da pasta de arquivos de logs é inválido. Ex.: ./log.log");
     }
 
-    if (!isValidPath(statistics)) {
-	panic(1, "O caminho da pasta de arquivos de estatísticas é inválido. Ex.: ./stats.txt");
-
+    if (statistics != NULL && !isValidPath(statistics)) {
+	    panic(1, "O caminho da pasta de arquivos de estatísticas é inválido. Ex.: ./stats.txt");
     }
     
     server(port, root, log, statistics, background);
