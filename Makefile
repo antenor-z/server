@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-Wall -pedantic -g3
+CFLAGS=-Wall -pedantic
 SRCS=main.c help.c panic.c handleData.c server.c malloque.c bye.c insertLog.c enqueue.c \
 dequeue.c datetime.c insertStats.c debug.c queue.c getFileType.c isValidPath.c
 OBJS=$(SRCS:.c=.o)
@@ -20,3 +20,9 @@ clean:
 
 run: ${EXEC}
 	./${EXEC} -p ${PORT} -r ${ROOT_DIR} -l ./log.log -s ./stats.txt
+
+run-verbose:
+	./${EXEC} -p ${PORT} -r ${ROOT_DIR} -l ./log.log -s ./stats.txt -v
+
+run-background:
+	./${EXEC} -p ${PORT} -r ${ROOT_DIR} -l ./log.log -s ./stats.txt -b
