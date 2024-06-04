@@ -32,10 +32,10 @@ void* handleData(void* args) {
     
     /* Getting headers */
     while((n = read(socket, bufferHeaders, B_HEAD_MAX_SIZE)) > 0) {
-        debug("[  Thread %ld  ] Received %d bytes", pthread_self(), (int)n);
-        debug("[  Thread %ld  ] ----- BEGIN CLIENT HEADERS -----", pthread_self());
-        debug("%s", bufferHeaders);
-        debug("[  Thread %ld  ] ----- END CLIENT HEADERS -----", pthread_self());
+        debug(queue, "[  Thread %lx  ] Received %d bytes", pthread_self(), (int)n);
+        debug(queue, "[  Thread %lx  ] ----- BEGIN CLIENT HEADERS -----", pthread_self());
+        debug(queue, "%s", bufferHeaders);
+        debug(queue, "[  Thread %lx  ] ----- END CLIENT HEADERS -----", pthread_self());
         if (bufferHeaders[n-1] == '\n' || n > B_HEAD_MAX_SIZE - 1) break;
     }
     bufferHeaders[n-1] = '\0';
@@ -101,7 +101,7 @@ void* handleData(void* args) {
     enqueue(statsQueue, pathWithBase);
 
     /* Clean */
-    debug("[  Thread %ld  ] Conection terminated", pthread_self());
+    debug(queue, "[  Thread %lx  ] Conection terminated", pthread_self());
     close(socket);
     free(headers);
     free(pathWithBase);

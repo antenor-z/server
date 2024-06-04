@@ -9,12 +9,14 @@
 
 bool isVerbose;
 
-void debug(const char* message, ...) {
+void debug(Queue* queue, const char* message, ...) {
     if (isVerbose) {
         va_list args;
         va_start(args, message);
-        vfprintf(stderr, message, args);
-        fputs("\n", stderr);
+        char* log = malloque(4096);
+        vsprintf(log, message, args);
+        strcat(log, "\n");
+        enqueue(queue, log);
         va_end(args);
     }
 }

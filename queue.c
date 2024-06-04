@@ -9,5 +9,4 @@ void queueInit(Queue* queue) {
     if (pthread_cond_init(&queue->cond_consumer, NULL) != 0) {
         panic(1, "Cond var init failed for queue %p", queue);
     }
-    debug("[  Queue  ] Creating queue %p", queue);
 }

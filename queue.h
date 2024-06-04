@@ -3,7 +3,6 @@
 
 #include <stdlib.h>
 #include <pthread.h>
-#include "debug.h"
 #include "panic.h"
 
 typedef struct Node {

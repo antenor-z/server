@@ -38,7 +38,6 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
     if (getaddrinfo(NULL, port, &dicas, &enderecoHost) != 0) {
         panic(1, "No information from server");
     }
-    debug("Host: %s", enderecoHost);
 
     /* Socket */
     socketfd = socket(enderecoHost->ai_family,
@@ -67,12 +66,9 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
     if (logPath != NULL) {
         pthread_create(&threads[NUM_THREADS - 1], NULL, insertLog, (void*)&logArgs);
     }
-    else {
-        debug("Log deactivated");
-    }
+    
     if (statsPath != NULL) {
         pthread_create(&threads[NUM_THREADS - 2], NULL, insertStats, (void*)&statsArgs);
-        debug("Stats deactivated");
     }
 
     if (background) {

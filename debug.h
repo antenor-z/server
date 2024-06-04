@@ -4,7 +4,10 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include "queue.h"
+#include "enqueue.h"
+#include "malloque.h"
 
-void debug(const char* message, ...);
+void debug(Queue* queue, const char* message, ...);
 
 #endif

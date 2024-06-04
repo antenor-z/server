@@ -14,6 +14,5 @@ void* dequeue(Queue* queue) {
     free(temp);
     
     pthread_mutex_unlock(&queue->mutex);
-    debug("Consumed on queue %p: element '%p' aka '%s'", queue, item, (char*) item);
     return item;
 }
