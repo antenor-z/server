@@ -3,8 +3,11 @@
 #include "queue.h"
 #include "malloque.h"
 #include "debug.h"
+#include <stdio.h>
+#include <stdarg.h>
+#include <stdlib.h>
 
 
-void enqueue(Queue* queue, void* item);
+void enqueue(Queue* queue, void* item, ...);
 
 #endif

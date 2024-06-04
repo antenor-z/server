@@ -97,12 +97,8 @@ void* handleData(void* args) {
         fclose(fp);
     }
 
-    char* log = malloque(300);
-    sprintf(log, "[ Thread %lx ] %s (%s) %s \"%s\"\n", pthread_self(), datetime(), hostaddr, status, pathWithBase);
-    enqueue(queue, log);
-    char* p = malloque(300);
-    sprintf(p, "%s", pathWithBase);
-    enqueue(statsQueue, p);
+    enqueue(queue, "[ Thread %lx ] %s (%s) %s \"%s\"\n", pthread_self(), datetime(), hostaddr, status, pathWithBase);
+    enqueue(statsQueue, pathWithBase);
 
     /* Clean */
     debug("[  Thread %ld  ] Conection terminated", pthread_self());

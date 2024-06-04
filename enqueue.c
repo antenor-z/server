@@ -1,8 +1,14 @@
 #include "enqueue.h"
 
-void enqueue(Queue* queue, void* item) {
+void enqueue(Queue* queue, void* item, ...) {
+    va_list args;
+    va_start(args, item);
+    char* formatedItem = malloque(strlen(item) * 5);
+    vsprintf(formatedItem, item, args);
+    va_end(args);
+
     Node* newNode = (Node*)malloque(sizeof(Node));
-    newNode->item = item;
+    newNode->item = formatedItem;
     newNode->next = NULL;
 
     pthread_mutex_lock(&queue->mutex);
@@ -14,5 +20,4 @@ void enqueue(Queue* queue, void* item) {
     }
     pthread_cond_signal(&queue->cond_consumer);
     pthread_mutex_unlock(&queue->mutex);
-    debug("Inserted on queue %p: element '%p' aka '%s'", queue, item, (char*) item);
 }
