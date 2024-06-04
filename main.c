@@ -9,21 +9,21 @@
  */
 
 int main(int argc, char** argv) {
-    char* port = malloque(7);
-    char* log = malloque(MAX_PATH_SIZE + 1);
+    char* port       = malloque(7);
+    char* log        = malloque(MAX_PATH_SIZE + 1);
     char* statistics = malloque(MAX_PATH_SIZE + 1);
-    bool background = false;
-    char* root = malloque(MAX_PATH_SIZE + 1);
-    isVerbose = false;
+    bool background  = false;
+    char* root       = malloque(MAX_PATH_SIZE + 1);
+    isVerbose        = false;
 
     struct option options[] = {
-        {"port", required_argument,         0, 'p'},
-        {"log", required_argument,          0, 'l'},
+        {"port",       required_argument,   0, 'p'},
+        {"log",        required_argument,   0, 'l'},
         {"statistics", required_argument,   0, 's'},
         {"background", no_argument,         0, 'b'},
-        {"root ", required_argument,        0, 'r'},
-        {"verbose", isVerbose,              0, 'v'},
-        {"help", no_argument,               0, 'h'},
+        {"root ",      required_argument,   0, 'r'},
+        {"verbose",    isVerbose,           0, 'v'},
+        {"help",       no_argument,         0, 'h'},
         {0, 0, 0, 0}
     };
 
