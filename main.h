@@ -14,7 +14,7 @@
 
 #define MAX_PATH_SIZE 4096
 
-extern bool isVerbose;
+bool isVerbose;
 
 int main(int argc, char** argv);
 

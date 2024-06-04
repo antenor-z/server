@@ -8,6 +8,8 @@
 #include "enqueue.h"
 #include "malloque.h"
 
+extern bool isVerbose;
+
 void debug(Queue* queue, const char* message, ...);
 
 #endif

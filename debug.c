@@ -7,7 +7,6 @@
  */
 
 
-bool isVerbose;
 
 void debug(Queue* queue, const char* message, ...) {
     if (isVerbose) {
