@@ -143,7 +143,7 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
                     tamCliente, hostaddr, sizeof hostaddr,
                     NULL, 0, NI_NUMERICHOST);
 
-        struct handleDataArgs* args = malloc(sizeof(struct handleDataArgs));
+        struct handleDataArgs* args = malloque(sizeof(struct handleDataArgs));
         if (args == NULL) {
             panic(1, "Memory allocation for handleDataArgs failed");
         }
