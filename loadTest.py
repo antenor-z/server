@@ -12,7 +12,7 @@ urls = [('http://localhost:5000/', 100),
 def make_request(url, number_of_hits):
     for _ in range(int(number_of_hits)):
         try:
-            requests.get(url, timeout=15)
+            requests.get(url, timeout=30)
         except requests.exceptions.RequestException as e:
             print(f"Request failed: {e}")
         # wait between 0.0001 and 0.1 s
@@ -20,7 +20,7 @@ def make_request(url, number_of_hits):
 
 threads = []
 
-NUMBER_OF_THREADS = 30
+NUMBER_OF_THREADS = 10
 for (url, number_of_hits) in urls:
     for _ in range(NUMBER_OF_THREADS):
         thread = threading.Thread(target=make_request, args=(url, number_of_hits / NUMBER_OF_THREADS))

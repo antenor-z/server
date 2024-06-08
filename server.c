@@ -4,7 +4,7 @@
  * Waits for TCP connection, when something arrives, make the args structure
  * and create handleData thread passing args.
  * Uses select() to be able to timeout accept(), so that the threads
- * can be stoped on SIGINT or SIGUSR1
+ * can be stopped on SIGINT or SIGUSR1
  */
 bool breakLoop = false;
 
@@ -41,20 +41,20 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
 
     /* Socket */
     socketfd = socket(enderecoHost->ai_family,
-    enderecoHost->ai_socktype,
-    enderecoHost->ai_protocol);
+                      enderecoHost->ai_socktype,
+                      enderecoHost->ai_protocol);
     if (socketfd == -1) {
         panic(1, "Error on socket creation.");
     }
 
     /* Set mode */
-    int optval=1;
-    if (setsockopt(socketfd,SOL_SOCKET,SO_REUSEADDR,&optval,sizeof optval)==-1) {
+    int optval = 1;
+    if (setsockopt(socketfd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof optval) == -1) {
         panic(1, "Error on reusing addr.");
     }
 
     /* Bind socket */
-    if (bind(socketfd,enderecoHost->ai_addr,enderecoHost->ai_addrlen)==-1) {
+    if (bind(socketfd, enderecoHost->ai_addr, enderecoHost->ai_addrlen) == -1) {
         panic(1, "Error on socket binding\n");
     }
 
@@ -80,20 +80,18 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
             exit(0);
         }
     }
-                     
+
     printf("\n%s  This is A4-Server running on port %s.\n", LINE_1, port);
     printf("%s  Use 'kill -s SIGUSR1 %d' to close me.\n%s\n", LINE_2, getpid(), LINE_3);
     printf("%s  - Serving files from: '%s'\n", LINE_4, filesLocation);
     if (logPath != NULL) {
         printf("%s  - Log file is saved on '%s'\n", LINE_5, logPath);
-    }
-    else {
+    } else {
         printf("%s  - Log file not activated\n", LINE_5);
     }
     if (statsPath != NULL) {
         printf("%s  - Statistics file is saved on '%s'\n", LINE_6, statsPath);
-    }
-    else {
+    } else {
         printf("%s  - Statistics file not activated\n", LINE_6);
     }
     if (background) {
@@ -106,13 +104,13 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
         dup2(dev_null, STDOUT_FILENO);
         dup2(dev_null, STDERR_FILENO);
     }
-    
-    while(!breakLoop) {
+
+    while (!breakLoop) {
         conexaofd = 0;
         unsigned tamCliente;
         char hostname[NI_MAXHOST], hostaddr[NI_MAXHOST];
         tEndereco enderecoCliente;
-        tamCliente = sizeof (tEndereco);
+        tamCliente = sizeof(tEndereco);
 
         /* Using select for accept() to "timeout" */
         fd_set fds;
@@ -130,8 +128,8 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
             continue;
         }
 
-        /* Accept connection */ 
-        conexaofd = accept(socketfd, (struct sockaddr *)&enderecoCliente, &tamCliente);
+        /* Accept connection */
+        conexaofd = accept(socketfd, (struct sockaddr*)&enderecoCliente, &tamCliente);
         if (conexaofd == -1) {
             continue;
         }
@@ -145,26 +143,30 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
                     tamCliente, hostaddr, sizeof hostaddr,
                     NULL, 0, NI_NUMERICHOST);
 
-        struct handleDataArgs args;
-        args.socket = conexaofd;
-        args.filesLocation = filesLocation;
-        args.queue = &logQueue;
-        args.statsQueue = &statsQueue;
-        args.hostname = hostname;
-        args.hostaddr = hostaddr;
+        struct handleDataArgs* args = malloc(sizeof(struct handleDataArgs));
+        if (args == NULL) {
+            panic(1, "Memory allocation for handleDataArgs failed");
+        }
+
+        args->socket = conexaofd;
+        args->filesLocation = filesLocation;
+        args->queue = &logQueue;
+        args->statsQueue = &statsQueue;
+        args->hostname = strdup(hostname);  // Allocate memory for hostname
+        args->hostaddr = strdup(hostaddr);  // Allocate memory for hostaddr
 
         debug(&logQueue, "--------------[ CONNECTION ]--------------");
-        debug(&logQueue, "Socket: %d", args.socket);
-        debug(&logQueue, "Host name: %s", args.hostname);
-        debug(&logQueue, "Host addr: %s", args.hostaddr);
+        debug(&logQueue, "Socket: %d", args->socket);
+        debug(&logQueue, "Host name: %s", args->hostname);
+        debug(&logQueue, "Host addr: %s", args->hostaddr);
 
         pthread_t newThread;
-        if (pthread_create(&newThread, NULL, &handleData, (void *)&args) != 0) {
+        if (pthread_create(&newThread, NULL, &handleData, (void*)args) != 0) {
             panic(1, "Could not create thread");
         }
         enqueue(&threadsQueue, &newThread);
     }
-    
+
     printf("[  Server  ] Waiting to for threads to die\n");
     pthread_t* ptrThreadToBeWaited;
     while (threadsQueue.head != NULL) {

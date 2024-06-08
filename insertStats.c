@@ -6,7 +6,6 @@ void* insertStats(void* arg) {
     insertStatsArgs *a = arg;
     char* logPath = a->logPath;
     Queue* queue = a->queue;
-    debug(queue, "Insert stats consumer created: %s", logPath);
     while (1) {
         char* log = (char*)dequeue(queue);
         if (log != NULL) {
