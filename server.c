@@ -144,9 +144,6 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
                     NULL, 0, NI_NUMERICHOST);
 
         struct handleDataArgs* args = malloque(sizeof(struct handleDataArgs));
-        if (args == NULL) {
-            panic(1, "Memory allocation for handleDataArgs failed");
-        }
 
         args->socket = conexaofd;
         args->filesLocation = filesLocation;
