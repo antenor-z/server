@@ -5,9 +5,9 @@ import requests
 import random
 
 urls = [('http://localhost:5000/', 100), 
-        ('http://localhost:5000/aaa', 100), 
-        ('http://localhost:5000/a.html', 100),
-        ('http://localhost:5000/s.html', 100)]
+        ('http://localhost:5000/aaa', 101), 
+        ('http://localhost:5000/a.html', 102),
+        ('http://localhost:5000/s.html', 103)]
 
 def make_request(url, number_of_hits):
     for _ in range(int(number_of_hits)):
@@ -20,7 +20,7 @@ def make_request(url, number_of_hits):
 
 threads = []
 
-NUMBER_OF_THREADS = 10
+NUMBER_OF_THREADS = 25
 for (url, number_of_hits) in urls:
     for _ in range(NUMBER_OF_THREADS):
         thread = threading.Thread(target=make_request, args=(url, number_of_hits / NUMBER_OF_THREADS))
