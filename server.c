@@ -94,6 +94,11 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
     } else {
         printf("%s  - Statistics file not activated\n", LINE_6);
     }
+    if (isVerbose) {
+        printf("%s  - Verbose logs activated \n", LINE_6);
+    } else {
+        printf("%s  - Verbose logs not activated \n", LINE_6);
+    }
     if (background) {
         printf("%s  - Background mode is set\n", LINE_6);
         int dev_null = open("/dev/null", O_RDWR);

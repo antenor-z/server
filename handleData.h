@@ -21,7 +21,7 @@
 "HTTP/1.1 404 Not Found\n\
 Server: A4-Server\n\
 Content-Type: text/html\n\
-Content-Length: 229\n\
+Content-Length: 230\n\
 \n\
 <!DOCTYPE html>\n\
 <html>\n\
