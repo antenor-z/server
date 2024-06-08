@@ -5,9 +5,9 @@ import requests
 import random
 
 urls = [('http://localhost:5000/', 100), 
-        ('http://localhost:5000/aaa', 101), 
-        ('http://localhost:5000/a.html', 102),
-        ('http://localhost:5000/s.html', 103)]
+        ('http://localhost:5000/aaa', 125), 
+        ('http://localhost:5000/a.html', 150),
+        ('http://localhost:5000/s.html', 175)]
 
 def make_request(url, number_of_hits):
     for _ in range(int(number_of_hits)):
