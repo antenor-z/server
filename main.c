@@ -89,11 +89,11 @@ int main(int argc, char** argv) {
     }
 
     if (log != NULL && !isValidPath(log)) {
-	    panic(1, "O caminho da pasta de arquivos de logs é inválido. Ex.: ./log.log");
+	    panic(1, "O caminho da pasta de arquivos de logs é inválido. Use ./ para diretorio local. Ex.: ./log.log");
     }
 
     if (statistics != NULL && !isValidPath(statistics)) {
-	    panic(1, "O caminho da pasta de arquivos de estatísticas é inválido. Ex.: ./stats.txt");
+	    panic(1, "O caminho da pasta de arquivos de estatísticas é inválido. Use ./ para diretorio local. Ex.: ./stats.txt");
     }
     
     server(port, root, log, statistics, background);
