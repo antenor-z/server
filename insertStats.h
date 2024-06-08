@@ -27,6 +27,6 @@ typedef struct {
     char* logPath;
 } insertStatsArgs;
 
-void* insertStats(void* arg);
+void insertStats(void* arg);
 
 #endif

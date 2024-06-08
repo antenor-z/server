@@ -1,6 +1,6 @@
 #include "insertStats.h"
 
-void* insertStats(void* arg) {
+void insertStats(void* arg) {
     AccessedPagesList accessedPagesList = {.first = NULL};
 
     insertStatsArgs *a = arg;
@@ -52,5 +52,5 @@ void* insertStats(void* arg) {
             fclose(file);
         }
     }
-    pthread_exit(NULL);
+    // pthread_exit(NULL);
 }

@@ -62,13 +62,9 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
     if (listen(socketfd, MAXLISTEN) == -1) {
         panic(1, "Error when tried to listen to port %d", port);
     }
-
+    
     if (logPath != NULL) {
         pthread_create(&threads[NUM_THREADS - 1], NULL, insertLog, (void*)&logArgs);
-    }
-    
-    if (statsPath != NULL) {
-        pthread_create(&threads[NUM_THREADS - 2], NULL, insertStats, (void*)&statsArgs);
     }
 
     if (background) {
@@ -168,6 +164,13 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
         }
         enqueue(&threadsQueue, &newThread);
     }
+
+    debug(&logQueue, "[   Server   ] Inserting stats");
+    printf("Inserting stats");
+    // if (statsPath != NULL) {
+    //     pthread_create(&threads[NUM_THREADS - 2], NULL, insertStats, (void*)&statsArgs);
+    // }
+    insertStats((void*)&statsArgs);
 
     printf("[  Server  ] Waiting to for threads to die\n");
     pthread_t* ptrThreadToBeWaited;
