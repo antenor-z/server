@@ -12,7 +12,7 @@ void debug(Queue* queue, const char* message, ...) {
     if (isVerbose) {
         va_list args;
         va_start(args, message);
-        char* log = malloque(4096);
+        char* log = malloque(80192);
         vsprintf(log, message, args);
         strcat(log, "\n");
         enqueue(queue, log);

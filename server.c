@@ -153,6 +153,11 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
         args.hostname = hostname;
         args.hostaddr = hostaddr;
 
+        debug(&logQueue, "--------------[ CONNECTION ]--------------");
+        debug(&logQueue, "Socket: %d", args.socket);
+        debug(&logQueue, "Host name: %s", args.hostname);
+        debug(&logQueue, "Host addr: %s", args.hostaddr);
+
         pthread_t newThread;
         if (pthread_create(&newThread, NULL, &handleData, (void *)&args) != 0) {
             panic(1, "Could not create thread");

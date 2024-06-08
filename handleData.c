@@ -62,6 +62,7 @@ void* handleData(void* args) {
     /* Returning header */
     FILE *fp = fopen(pathWithBase, "r");
     if (fp == NULL) {
+        debug(queue, "File was not found reponding with HTTP 404.");
         strcpy(status, "HTTP/1.1 404 Not Found");
         strcpy(headers, NOT_FOUND_CONTENT);
         fileResponse = false;
@@ -85,6 +86,10 @@ void* handleData(void* args) {
         strcat(headers, strContentType);
 
         strcat(headers, SEPARATOR);
+
+        debug(queue, "File '%s' was found", pathWithBase);
+        debug(queue, "  Size: %s", strContentLen);
+        debug(queue, "  MIME: %s", strContentType);
     }
 
     write(socket, headers, strlen(headers));
