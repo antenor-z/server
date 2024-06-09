@@ -6,7 +6,7 @@
 #include <stdbool.h>
 #include "queue.h"
 #include "enqueue.h"
-#include "malloque.h"
+#include "utils.h"
 
 extern bool isVerbose;
 

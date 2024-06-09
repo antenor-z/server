@@ -167,9 +167,6 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
 
     debug(&logQueue, "[   Server   ] Inserting stats");
     printf("Inserting stats");
-    // if (statsPath != NULL) {
-    //     pthread_create(&threads[NUM_THREADS - 2], NULL, insertStats, (void*)&statsArgs);
-    // }
     insertStats((void*)&statsArgs);
 
     printf("[  Server  ] Waiting to for threads to die\n");

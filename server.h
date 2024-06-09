@@ -17,8 +17,8 @@
 #include "enqueue.h"
 #include "dequeue.h"
 #include "queue.h"
-#include "panic.h"
-#include "bye.h"
+#include "utils.h"
+#include "debug.h"
 #include "insertLog.h"
 
 #define LINE_1 " ██████   ██    ██ "

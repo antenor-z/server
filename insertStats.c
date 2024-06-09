@@ -6,7 +6,7 @@ void insertStats(void* arg) {
     insertStatsArgs *a = arg;
     char* logPath = a->logPath;
     Queue* queue = a->queue;
-    while (1) {
+    while (queue->head != NULL) {
         char* log = (char*)dequeue(queue);
         if (log != NULL) {
             if (accessedPagesList.first == NULL) {
@@ -52,5 +52,4 @@ void insertStats(void* arg) {
             fclose(file);
         }
     }
-    // pthread_exit(NULL);
 }

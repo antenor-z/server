@@ -4,7 +4,8 @@
 #include <stdlib.h>
 #include "queue.h"
 #include "dequeue.h"
-#include "panic.h"
+#include "utils.h"
+#include "debug.h"
 void* insertLog(void* arg);
 typedef struct {
     Queue* queue;

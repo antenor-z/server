@@ -2,7 +2,7 @@
 #define _DEQUEUE_H_
 #include <stdlib.h>
 #include "queue.h"
-#include "debug.h"
+#include "utils.h"
 
 void* dequeue(Queue* queue);
 

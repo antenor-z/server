@@ -25,6 +25,11 @@
         "server.h": "c",
         "datetime.h": "c",
         "debug.h": "c",
-        "insertstats.h": "c"
+        "insertstats.h": "c",
+        "dirent.h": "c",
+        "malloque.h": "c",
+        "stdarg.h": "c",
+        "utils.h": "c",
+        "netdb.h": "c"
     }
 }

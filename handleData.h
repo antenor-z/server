@@ -8,9 +8,7 @@
 #include <stdbool.h>
 #include <pthread.h>
 #include "queue.h"
-#include "datetime.h"
-#include "panic.h"
-#include "malloque.h"
+#include "utils.h"
 #include "enqueue.h"
 #include "debug.h"
 #include "getFileType.h"

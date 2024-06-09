@@ -6,8 +6,7 @@
 #include <string.h>
 #include "queue.h"
 #include "dequeue.h"
-#include "malloque.h"
-#include "panic.h"
+#include "utils.h"
 #include <pthread.h>
 
 typedef struct _accessedPage
