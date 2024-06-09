@@ -16,6 +16,8 @@ $(EXEC): $(OBJS)
 
 clean:
 	rm -f $(EXEC) $(OBJS)
+	rm *.log
+	rm *.txt
 
 run: ${EXEC}
 	./${EXEC} -p ${PORT} -r ${ROOT_DIR} -l ./log.log -s ./stats.txt
