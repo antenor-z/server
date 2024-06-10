@@ -186,9 +186,9 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
         if (threadsPool[i] != 0) {
             pthread_join(threadsPool[currentThread], NULL);
             puts(".");
+            fflush(stdout);
         }
     }
-    pthread_join(logThread, NULL);
     puts("\n[  Server  ] Bye");
     return 0;
 }
