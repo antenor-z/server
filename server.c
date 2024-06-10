@@ -178,10 +178,11 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
     }
 
     debug(&logQueue, "[   Server   ] Inserting stats");
-    puts("Inserting stats");
+    puts("[   Server   ] Inserting stats");
     insertStats((void*)&statsArgs);
 
-    puts("[  Server  ] Waiting for remaining threads to die\n");
+    puts("[  Server  ] Waiting for remaining threads to die");
+    debug(&logQueue, "[   Server   ] Waiting for remaining threads to die");
     for (int i = 0; i < MAX_NUM_THREADS; i++) {
         if (threadsPool[i] != 0) {
             pthread_join(threadsPool[currentThread], NULL);
