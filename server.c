@@ -170,13 +170,11 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
     insertStats((void*)&statsArgs);
 
     printf("[  Server  ] Waiting to for threads to die\n");
-    pthread_t* ptrThreadToBeWaited;
+    pthread_t ptrThreadToBeWaited;
     while (threadsQueue.head != NULL) {
-        ptrThreadToBeWaited = dequeue(&threadsQueue);
-        if (*ptrThreadToBeWaited != INVALID_THREAD) {
-            printf(".");
-            pthread_join(*ptrThreadToBeWaited, NULL);
-        }
+        ptrThreadToBeWaited = *((pthread_t*)dequeue(&threadsQueue));
+        printf(".. %lx\n", ptrThreadToBeWaited);
+        pthread_join(ptrThreadToBeWaited, NULL);
     }
     puts("[  Server  ] Bye");
     return 0;
