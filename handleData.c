@@ -23,25 +23,25 @@ void* handleData(void* args) {
 
     /* init */
     int n;
-    char* bufferHeaders = malloque(B_HEAD_MAX_SIZE);
-    char* bufferFile = malloque(B_FILE_MAX_SIZE);
-    char* headers = malloque(EIGHT_KB);
-    char* status = malloque(100);
+    char* bufferHeaders = malloque(HTTP_HEADER_MAX_SIZE);
+    char* bufferFile = malloque(CHUNK_SIZE);
+    char* headers = malloque(HTTP_HEADER_MAX_SIZE);
+    char* status = malloque(STATUS_MAX_SIZE);
 
 
     bool fileResponse = true;
     
     /* Getting headers */
-    while((n = read(socket, bufferHeaders, B_HEAD_MAX_SIZE)) > 0) {
+    while((n = read(socket, bufferHeaders, HTTP_HEADER_MAX_SIZE)) > 0) {
         debug(queue, "[  Thread %lx  ] Received %d bytes", pthread_self(), (int)n);
         debug(queue, "[  Thread %lx  ] ----- BEGIN CLIENT HEADERS -----", pthread_self());
         debug(queue, "%s", bufferHeaders);
         debug(queue, "[  Thread %lx  ] ----- END CLIENT HEADERS -----", pthread_self());
-        if (bufferHeaders[n-1] == '\n' || n > B_HEAD_MAX_SIZE - 1) break;
+        if (bufferHeaders[n-1] == '\n' || n > HTTP_HEADER_MAX_SIZE - 1) break;
     }
     bufferHeaders[n-1] = '\0';
 
-    char path[1024] = {0};  
+    char path[PATH_MAX] = {0};  
     if (sscanf(bufferHeaders, "%*s %1023s %*s", path) != 1) { 
         strcpy(path, "/");
     }
@@ -98,7 +98,7 @@ void* handleData(void* args) {
 
     /* Returning file if it's needed */
     if (fileResponse) {
-        while ((n = fread(bufferFile, 1, B_FILE_MAX_SIZE, fp)) > 0) {
+        while ((n = fread(bufferFile, 1, CHUNK_SIZE, fp)) > 0) {
             write(socket, bufferFile, n);
         }
         fclose(fp);

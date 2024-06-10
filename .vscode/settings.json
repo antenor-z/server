@@ -30,6 +30,8 @@
         "malloque.h": "c",
         "stdarg.h": "c",
         "utils.h": "c",
-        "netdb.h": "c"
+        "netdb.h": "c",
+        "getfiletype.h": "c",
+        "system_error": "c"
     }
 }

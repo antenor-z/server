@@ -8,7 +8,7 @@ void bye(){
 
 
 bool isValidPath(char *path) {
-    char* dirPath = malloque(4096);
+    char* dirPath = malloque(PATH_MAX);
     strcpy(dirPath, path);
     char *lastSlash = strrchr(dirPath, '/');
     if (lastSlash != NULL) {

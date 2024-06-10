@@ -22,8 +22,8 @@ clean:
 run: ${EXEC}
 	./${EXEC} -p ${PORT} -r ${ROOT_DIR} -l ./log.log -s ./stats.txt
 
-run-verbose:
+run-verbose: ${EXEC}
 	./${EXEC} -p ${PORT} -r ${ROOT_DIR} -l ./log.log -s ./stats.txt -v
 
-run-background:
+run-background: ${EXEC}
 	./${EXEC} -p ${PORT} -r ${ROOT_DIR} -l ./log.log -s ./stats.txt -b

@@ -3,10 +3,14 @@
 void enqueue(Queue* queue, void* item, ...) {
     va_list args;
     va_start(args, item);
-    char* formatedItem = malloque(strlen(item) * 5);
-    vsprintf(formatedItem, item, args);
-    va_end(args);
 
+    va_list args_copy;
+    va_copy(args_copy, args);
+    int len = vsnprintf(NULL, 0, item, args_copy);
+    va_end(args_copy);
+
+    char* formatedItem = malloque(len + 1);
+    vsprintf(formatedItem, item, args);
     Node* newNode = (Node*)malloque(sizeof(Node));
     newNode->item = formatedItem;
     newNode->next = NULL;

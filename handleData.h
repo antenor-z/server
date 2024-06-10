@@ -12,9 +12,10 @@
 #include "enqueue.h"
 #include "debug.h"
 #include "getFileType.h"
-#define B_HEAD_MAX_SIZE 4096
-#define B_FILE_MAX_SIZE 2048
-#define EIGHT_KB 1024 * 8
+#include <limits.h>
+#define HTTP_HEADER_MAX_SIZE 4096
+#define CHUNK_SIZE 2048
+#define STATUS_MAX_SIZE 50
 #define NOT_FOUND_CONTENT \
 "HTTP/1.1 404 Not Found\n\
 Server: A4-Server\n\

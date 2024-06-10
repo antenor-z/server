@@ -9,8 +9,7 @@
 #include <dirent.h>
 #include <ctype.h>
 #include "utils.h"
-
-#define MAX_PATH_SIZE 4096
+#include <limits.h>
 
 bool isVerbose;
 

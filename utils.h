@@ -9,6 +9,7 @@
 #include <stdbool.h>
 #include <stdarg.h>
 #include <stdlib.h>
+#include <limits.h>
 #include <time.h>
 
 extern bool isVerbose;

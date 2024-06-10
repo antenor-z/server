@@ -10,10 +10,10 @@
 
 int main(int argc, char** argv) {
     char* port       = malloque(7);
-    char* log        = malloque(MAX_PATH_SIZE + 1);
-    char* statistics = malloque(MAX_PATH_SIZE + 1);
+    char* log        = malloque(PATH_MAX + 1);
+    char* statistics = malloque(PATH_MAX + 1);
     bool background  = false;
-    char* root       = malloque(MAX_PATH_SIZE + 1);
+    char* root       = malloque(PATH_MAX + 1);
     isVerbose        = false;
 
     struct option options[] = {
@@ -34,10 +34,10 @@ int main(int argc, char** argv) {
             strncpy(port, optarg, 7);
             break;
         case 'l':
-            strncpy(log, optarg, MAX_PATH_SIZE - 1);
+            strncpy(log, optarg, PATH_MAX);
             break;
         case 's':
-            strncpy(statistics, optarg, MAX_PATH_SIZE - 1);
+            strncpy(statistics, optarg, PATH_MAX);
             break;
         case 'b':
             background = true;
@@ -46,7 +46,7 @@ int main(int argc, char** argv) {
             isVerbose = true;
             break;
         case 'r':
-            strncpy(root, optarg, MAX_PATH_SIZE - 1);
+            strncpy(root, optarg, PATH_MAX - 1);
             break;
         case 'h':
             help();
