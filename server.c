@@ -9,7 +9,7 @@
 bool breakLoop = false;
 
 int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool background) {
-    pthread_t threads[NUM_THREADS];
+    pthread_t logThread;
     Queue logQueue;
     Queue statsQueue;
     Queue threadsQueue;
@@ -64,7 +64,7 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
     }
     
     if (logPath != NULL) {
-        pthread_create(&threads[NUM_THREADS - 1], NULL, insertLog, (void*)&logArgs);
+        pthread_create(&logThread, NULL, insertLog, (void*)&logArgs);
     }
 
     if (background) {
@@ -158,7 +158,7 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
         debug(&logQueue, "Host name: %s", args->hostname);
         debug(&logQueue, "Host addr: %s", args->hostaddr);
 
-        pthread_t newThread;
+        pthread_t newThread = INVALID_THREAD;
         if (pthread_create(&newThread, NULL, &handleData, (void*)args) != 0) {
             panic(1, "Could not create thread");
         }
@@ -173,8 +173,10 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
     pthread_t* ptrThreadToBeWaited;
     while (threadsQueue.head != NULL) {
         ptrThreadToBeWaited = dequeue(&threadsQueue);
-        printf(".");
-        pthread_join(*ptrThreadToBeWaited, NULL);
+        if (*ptrThreadToBeWaited != INVALID_THREAD) {
+            printf(".");
+            pthread_join(*ptrThreadToBeWaited, NULL);
+        }
     }
     printf("\n");
     puts("[  Server  ] Bye");
