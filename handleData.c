@@ -46,17 +46,18 @@ void* handleData(void* args) {
         strcpy(path, "/");
     }
 
-    /* If the route is "/" answer with index.html */
-    if (strcmp(path, "/") == 0) {
-        strcpy(path, "/index.html");
-    }
-
-    char* pathWithBase = malloque(strlen(path) + strlen(filesLocation) + 1);
+    char* pathWithBase = malloque(strlen(path) + strlen(filesLocation) + strlen("/index.html") + 1);
     sprintf(pathWithBase, "%s%s", filesLocation, path);
 
     /* Ensure the pathWithBase is valid */
     if (strlen(pathWithBase) == 0 || strstr(pathWithBase, "..")) {
         strcpy(pathWithBase, "/index.html");  // Default to index.html on invalid paths
+    }
+
+    /* If the route is a folder we want index.html */
+    if (opendir(pathWithBase) != 0) {
+        enqueue(queue, "[ Thread %lx ]  A folder was requested, return index.html of that folder\n", pthread_self());
+        strcat(pathWithBase, "/index.html");
     }
 
 
