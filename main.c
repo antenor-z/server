@@ -52,19 +52,19 @@ int main(int argc, char** argv) {
             help();
             break;
         default:
-            panic(1, "Argumento inválido: %c", optopt);
+            panic(1, "Invalid arg: %c", optopt);
         }
     }
 
     /* Check for mandatory args */
     if (strlen(port) == 0) {
-        panic(1, "É necessário informar a porta. Ex.: -p 5000");
+        panic(1, "You need to specify the port. E.g. -p 5000");
     }
     if (atoi(port) == 0) {
-        panic(1, "Porta inválida. Ex.: -p 5000");
+        panic(1, "Invalid port. E.g. -p 5000");
     }
     if (strlen(root) == 0) {
-        panic(1, "É necessário informar o caminho da pasta fonte. Ex.: -r ./test");
+        panic(1, "You need to specify the root path. E.g. -r ./test");
     }
     if (strlen(statistics) == 0) {
         statistics = NULL;
@@ -76,24 +76,24 @@ int main(int argc, char** argv) {
     /* Sanitization */
     char* s = port;
     while (*s) {
-    	if (isdigit(*s++) == 0) panic(1, "A porta informada é inválida. Deve ser um número. Ex.: -p 5000");
+    	if (isdigit(*s++) == 0) panic(1, "Invalid port. Must be a number. E.g. -p 5000");
     }
 
     int portI = atoi(port);
     if (portI < 0 || portI >= 65535) {
-        panic(1, "A porta informada é inválida. Deve estar entre 0 e 65535. Ex. -p 5000");
+        panic(1, "Invalid port. Must be between 0 and 65535. E.g. -p 5000");
     }
 
     if (opendir(root) == 0) {
-	    panic(1, "O caminho da pasta fonte é inválido. Ex.: -r ./test");
+	    panic(1, "Invalid root path. E.g. -r ./test");
     }
 
     if (log != NULL && !isValidPath(log)) {
-	    panic(1, "O caminho da pasta de arquivos de logs é inválido. Use ./ para diretorio local. Ex.: ./log.log");
+	    panic(1, "The log file folder path is invalid. Use ./ for local directory. E.g. ./log.log");
     }
 
     if (statistics != NULL && !isValidPath(statistics)) {
-	    panic(1, "O caminho da pasta de arquivos de estatísticas é inválido. Use ./ para diretorio local. Ex.: ./stats.txt");
+	    panic(1, "The statistics file folder path is invalid. Use ./ for local directory. Ex.: ./stats.txt");
     }
     
     server(port, root, log, statistics, background);
