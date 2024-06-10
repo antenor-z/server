@@ -29,8 +29,7 @@
 #define LINE_6 "                   "
 #define EVER ;;
 #define MAXLISTEN 257
-#define NUM_THREADS 1000
-#define INVALID_THREAD 0xABABAC
+#define MAX_NUM_THREADS 100
 
 typedef union {
 struct sockaddr_in cliente4;

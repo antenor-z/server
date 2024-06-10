@@ -10,13 +10,17 @@ bool breakLoop = false;
 
 int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool background) {
     pthread_t logThread;
+    pthread_t threadsPool[MAX_NUM_THREADS];
+    for (int i = 0; i < MAX_NUM_THREADS; i++) {
+        threadsPool[i] = 0;
+    }
+    int currentThread = 0;
+
     Queue logQueue;
     Queue statsQueue;
-    Queue threadsQueue;
 
     queueInit(&logQueue);
     queueInit(&statsQueue);
-    queueInit(&threadsQueue);
 
     signal(SIGINT, bye);
     signal(SIGUSR1, bye);
@@ -158,24 +162,33 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
         debug(&logQueue, "Host name: %s", args->hostname);
         debug(&logQueue, "Host addr: %s", args->hostaddr);
 
-        pthread_t newThread = INVALID_THREAD;
-        if (pthread_create(&newThread, NULL, &handleData, (void*)args) != 0) {
+        if (threadsPool[currentThread] != 0) {
+            pthread_join(threadsPool[currentThread], NULL);
+            threadsPool[currentThread] = 0;
+        }
+        if (pthread_create(&threadsPool[currentThread], NULL, &handleData, (void*)args) != 0) {
             panic(1, "Could not create thread");
         }
-        enqueue(&threadsQueue, &newThread);
+        if (currentThread < MAX_NUM_THREADS - 1) {
+            currentThread += 1;
+        }
+        else {
+            currentThread = 0;
+        }
     }
 
     debug(&logQueue, "[   Server   ] Inserting stats");
-    printf("Inserting stats");
+    puts("Inserting stats");
     insertStats((void*)&statsArgs);
 
-    printf("[  Server  ] Waiting to for threads to die\n");
-    pthread_t ptrThreadToBeWaited;
-    while (threadsQueue.head != NULL) {
-        ptrThreadToBeWaited = *((pthread_t*)dequeue(&threadsQueue));
-        printf(".. %lx\n", ptrThreadToBeWaited);
-        pthread_join(ptrThreadToBeWaited, NULL);
+    puts("[  Server  ] Waiting for remaining threads to die\n");
+    for (int i = 0; i < MAX_NUM_THREADS; i++) {
+        if (threadsPool[i] != 0) {
+            pthread_join(threadsPool[currentThread], NULL);
+            puts(".");
+        }
     }
-    puts("[  Server  ] Bye");
+    pthread_join(logThread, NULL);
+    puts("\n[  Server  ] Bye");
     return 0;
 }
