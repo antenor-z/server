@@ -20,8 +20,6 @@ void* insertLog(void* arg) {
         //     break;
         // }
         fclose(file);
-        printf("log\n");
     }
-    printf("exit\n");
     pthread_exit(NULL);
 }

@@ -185,8 +185,6 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
     for (int i = 0; i < MAX_NUM_THREADS; i++) {
         if (threadsPool[i] != 0) {
             pthread_join(threadsPool[currentThread], NULL);
-            puts(".");
-            fflush(stdout);
         }
     }
     puts("\n[  Server  ] Bye");

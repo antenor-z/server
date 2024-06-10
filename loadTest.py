@@ -8,7 +8,8 @@ urls = [('http://localhost:5000/', 80),
         ('http://localhost:5000/aaa', 160), 
         ('http://localhost:5000/a.html', 40),
         ('http://localhost:5000/s.html', 320),
-        ('http://localhost:5000/p.html', 400),
+        ('http://localhost:5000/pasta/L1.html', 240),
+        ('http://localhost:5000/pasta/pasta/L2.html', 40),
         ('http://localhost:5000/andkeoviekjkvpkifdfkfoekflvmlekfodsfdfs.html', 80)
         ]
 
