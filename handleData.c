@@ -19,6 +19,7 @@ void* handleData(void* args) {
     Queue* statsQueue = a->statsQueue;
     // char* hostname = a->hostname;
     char* hostaddr = a->hostaddr;
+    free(a);
 
     /* init */
     int n;
