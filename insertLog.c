@@ -1,4 +1,8 @@
 #include "insertLog.h"
+
+/*
+ * Consumes the queue and inserts log in file
+ */
 void* insertLog(void* arg) {
     insertLogArgs *a = arg;
     char* logPath = a->logPath;

@@ -1,5 +1,8 @@
 #include "queue.h"
 
+/*
+ * Queue for multiple producers and one consumer
+ */
 void queueInit(Queue* queue) {
     queue->head = NULL;
     queue->tail = NULL;

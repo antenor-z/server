@@ -1,5 +1,8 @@
 #include "getFileType.h"
 
+/*
+ * Used to set Content-Type header
+ */
 void getFileType(char* pathWithBase, char* ret) {
     char* strFileExtension;
     char *dot = strrchr(pathWithBase, '.');

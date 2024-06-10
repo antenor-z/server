@@ -1,5 +1,8 @@
 #include "insertStats.h"
 
+/*
+ * Consumes the queue and create statistics file
+ */
 void insertStats(void* arg) {
     AccessedPagesList accessedPagesList = {.first = NULL};
 
