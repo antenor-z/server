@@ -178,7 +178,6 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
             pthread_join(*ptrThreadToBeWaited, NULL);
         }
     }
-    printf("\n");
     puts("[  Server  ] Bye");
     return 0;
 }
