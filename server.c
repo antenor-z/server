@@ -154,8 +154,8 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
         args->filesLocation = filesLocation;
         args->queue = &logQueue;
         args->statsQueue = &statsQueue;
-        args->hostname = strdup(hostname);  // Allocate memory for hostname
-        args->hostaddr = strdup(hostaddr);  // Allocate memory for hostaddr
+        args->hostname = hostname;
+        args->hostaddr = hostaddr;
 
         debug(&logQueue, "--------------[ CONNECTION ]--------------");
         debug(&logQueue, "Socket: %d", args->socket);

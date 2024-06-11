@@ -107,7 +107,7 @@ void* handleData(void* args) {
     }
 
     char* dt = datetime();
-    enqueue(queue, "[ Thread %lx ] %s (%s) %s \"%s\"\n", pthread_self(), datetime(), hostaddr, status, pathWithBase);
+    enqueue(queue, "[ Thread %lx ] %s (%s) %s \"%s\"\n", pthread_self(), dt, hostaddr, status, pathWithBase);
     free(dt);
     enqueue(statsQueue, pathWithBase);
 
