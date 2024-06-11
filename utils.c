@@ -14,11 +14,13 @@ bool isValidPath(char *path) {
     if (lastSlash != NULL) {
         *lastSlash = '\0';
     }
-	
-    if (opendir(dirPath) == 0) {
+
+	DIR *dir;
+    if ((dir = opendir(dirPath)) == 0) {
         free(dirPath);
 	    return false;
     }
+    closedir(dir);
     free(dirPath);
     return true;
 }

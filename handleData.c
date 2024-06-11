@@ -55,7 +55,9 @@ void* handleData(void* args) {
     }
 
     /* If the route is a folder we want index.html */
-    if (opendir(pathWithBase) != 0) {
+    DIR *dir;
+    if ((dir = opendir(pathWithBase)) != 0) {
+        closedir(dir);
         enqueue(queue, "[ Thread %lx ]  A folder was requested, return index.html of that folder\n", pthread_self());
         strcat(pathWithBase, "/index.html");
     }

@@ -188,6 +188,7 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
             pthread_join(threadsPool[currentThread], NULL);
         }
     }
+    // pthread_join(logThread, NULL);
     puts("\n[  Server  ] Bye");
     return 0;
 }

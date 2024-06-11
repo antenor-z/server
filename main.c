@@ -84,9 +84,11 @@ int main(int argc, char** argv) {
         panic(1, "Invalid port. Must be between 0 and 65535. E.g. -p 5000");
     }
 
-    if (opendir(root) == 0) {
+    DIR *dir;
+    if ((dir = opendir(root)) == 0) {
 	    panic(1, "Invalid root path. E.g. -r ./test");
     }
+    closedir(dir);
 
     if (log != NULL && !isValidPath(log)) {
 	    panic(1, "The log file folder path is invalid. Use ./ for local directory. E.g. ./log.log");
