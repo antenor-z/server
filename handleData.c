@@ -32,6 +32,7 @@ void* handleData(void* args) {
     bool fileResponse = true;
     
     /* Getting headers */
+    memset(bufferHeaders, '\0', HTTP_HEADER_MAX_SIZE);
     while((n = read(socket, bufferHeaders, HTTP_HEADER_MAX_SIZE)) > 0) {
         debug(queue, "[  Thread %lx  ] Received %d bytes", pthread_self(), (int)n);
         debug(queue, "[  Thread %lx  ] ----- BEGIN CLIENT HEADERS -----", pthread_self());
