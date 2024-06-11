@@ -16,8 +16,10 @@ bool isValidPath(char *path) {
     }
 	
     if (opendir(dirPath) == 0) {
-	return false;
+        free(dirPath);
+	    return false;
     }
+    free(dirPath);
     return true;
 }
 
