@@ -8,7 +8,7 @@ void* insertLog(void* arg) {
     char* logPath = a->logPath;
     Queue* queue = a->queue;
     debug(queue, "Insert log consumer created: %s", logPath);
-    while (!breakLoop) {
+    while (1) {
         FILE* file = fopen(logPath, "a");
         if (file == NULL) {
             panic(1, "Error opening file");
@@ -24,6 +24,7 @@ void* insertLog(void* arg) {
         //     break;
         // }
         fclose(file);
+        pthread_testcancel();
     }
     pthread_exit(NULL);
 }

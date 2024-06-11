@@ -13,7 +13,7 @@
 #include <time.h>
 
 extern bool isVerbose;
-extern bool breakLoop;
+extern volatile bool breakLoop;
 
 void bye();
 bool isValidPath(char *path);

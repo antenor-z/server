@@ -6,7 +6,7 @@
  * Uses select() to be able to timeout accept(), so that the threads
  * can be stopped on SIGINT or SIGUSR1
  */
-bool breakLoop = false;
+volatile bool breakLoop = false;
 
 int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool background) {
     pthread_t logThread;
@@ -177,19 +177,26 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
         }
     }
 
-    debug(&logQueue, "[   Server   ] Inserting stats");
-    puts("[   Server   ] Inserting stats");
-    insertStats((void*)&statsArgs);
+    if (statsPath != NULL) {
+        debug(&logQueue, "[   Server   ] Inserting stats");
+        puts("\n[   Server   ] Inserting stats");
+        insertStats((void*)&statsArgs);
+    }
 
-    puts("[  Server  ] Waiting for remaining threads to die");
+    puts("[   Server   ] Waiting for remaining threads to die");
     debug(&logQueue, "[   Server   ] Waiting for remaining threads to die");
     for (int i = 0; i < MAX_NUM_THREADS; i++) {
         if (threadsPool[i] != 0) {
-            pthread_join(threadsPool[currentThread], NULL);
+            pthread_join(threadsPool[i], NULL);
         }
     }
-    // pthread_join(logThread, NULL);
-    puts("\n[  Server  ] Bye");
+    if (logPath != NULL) {
+        debug(&logQueue, "[   Server   ] Killing logs thread");
+        puts("[   Server   ] Killing logs thread");
+        pthread_cancel(logThread);
+        pthread_join(logThread, NULL);
+    }
+    puts("[   Server   ] Bye");
     free(enderecoHost);
     return 0;
 }
