@@ -23,7 +23,7 @@ void* handleData(void* args) {
 
     /* init */
     int n;
-    char* bufferHeaders = malloque(HTTP_HEADER_MAX_SIZE);
+    char* bufferHeaders = malloque(HTTP_HEADER_MAX_SIZE + 1);
     char* bufferFile = malloque(CHUNK_SIZE);
     char* headers = malloque(HTTP_HEADER_MAX_SIZE);
     char* status = malloque(STATUS_MAX_SIZE);
@@ -40,7 +40,7 @@ void* handleData(void* args) {
         debug(queue, "[  Thread %lx  ] ----- END CLIENT HEADERS -----", pthread_self());
         if (bufferHeaders[n-1] == '\n' || n > HTTP_HEADER_MAX_SIZE - 1) break;
     }
-    bufferHeaders[n-1] = '\0';
+    bufferHeaders[HTTP_HEADER_MAX_SIZE] = '\0';
 
     char path[PATH_MAX] = {0};  
     if (sscanf(bufferHeaders, "%*s %1023s %*s", path) != 1) { 
