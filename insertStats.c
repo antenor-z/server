@@ -53,14 +53,13 @@ void insertStats(void* arg) {
                 currentNode = currentNode->next;
             }
             fclose(file);
-
-            // currentNode = accessedPagesList.first;
-            // while (currentNode != NULL) {
-            //     AccessedPageNode* temp = currentNode;
-            //     currentNode = currentNode->next;
-            //     free(temp->page);
-            //     free(temp);
-            // }
         }
+    }
+    AccessedPageNode* currentNode = accessedPagesList.first;
+    while (currentNode != NULL) {
+        AccessedPageNode* temp = currentNode;
+        currentNode = currentNode->next;
+        free(temp->page);
+        free(temp);
     }
 }
