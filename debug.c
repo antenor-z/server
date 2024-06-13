@@ -13,14 +13,12 @@ void debug(Queue* queue, const char* message, ...) {
         va_list args;
         va_start(args, message);
         
-        va_list args_copy;
-        va_copy(args_copy, args);
-        int len = vsnprintf(NULL, 0, message, args_copy);
-        va_end(args_copy);
-
-        char* log = malloque(len + 2); // Because of \n
+        /* I tried to use malloque() here but valgrind with --leak-check=full complains
+         * The maximum debug message is the HTTP header that 
+         * (normally is less than) 4096 bytes */
+        char log[4096];
         vsprintf(log, message, args);
-        strcat(log, "\n");
+        // strcat(log, "\n");
         enqueue(queue, log);
         va_end(args);
     }
