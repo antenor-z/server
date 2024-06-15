@@ -18,7 +18,7 @@ void debug(Queue* queue, const char* message, ...) {
          * (normally is less than) 4096 bytes */
         char log[4096];
         vsprintf(log, message, args);
-        // strcat(log, "\n");
+        strcat(log, "\n");
         enqueue(queue, log);
         va_end(args);
     }

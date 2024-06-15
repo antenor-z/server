@@ -9,6 +9,16 @@
 volatile bool breakLoop = false;
 
 int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool background) {
+    if (background) {
+        pid_t pid = fork();
+        if (pid < 0) {
+            panic(1, "Error when forking process");
+        }
+        if (pid > 0) {
+            exit(0);
+        }
+    }
+
     pthread_t logThread;
     pthread_t threadsPool[MAX_NUM_THREADS];
     for (int i = 0; i < MAX_NUM_THREADS; i++) {
@@ -70,16 +80,6 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
     
     if (logPath != NULL) {
         pthread_create(&logThread, NULL, insertLog, (void*)&logArgs);
-    }
-
-    if (background) {
-        pid_t pid = fork();
-        if (pid < 0) {
-            panic(1, "Error when forking process");
-        }
-        if (pid > 0) {
-            exit(0);
-        }
     }
 
     printf("\n%s  This is A4-Server running on port %s.\n", LINE_1, port);
