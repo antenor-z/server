@@ -24,6 +24,7 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
 
     signal(SIGINT, bye);
     signal(SIGUSR1, bye);
+    signal(SIGPIPE, SIG_IGN);
     int socketfd, conexaofd;
     insertLogArgs logArgs;
     logArgs.queue = &logQueue;
