@@ -27,3 +27,6 @@ run-verbose: ${EXEC}
 
 run-background: ${EXEC}
 	./${EXEC} -p ${PORT} -r ${ROOT_DIR} -l ./log.log -s ./stats.txt -b
+
+mem-check: ${EXEC}
+	valgrind --leak-check=full ./${EXEC} -p ${PORT} -r ${ROOT_DIR} -l ./log.log -s ./stats.txt -v

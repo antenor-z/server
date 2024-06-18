@@ -192,7 +192,7 @@ int server(char* port, char* filesLocation, char* logPath, char* statsPath, bool
         }
     }
     if (logPath != NULL) {
-        debug(&logQueue, "[   Server   ] Killing logs thread");
+        // debug(&logQueue, "[   Server   ] Killing logs thread"); Too close to thread kill, will cause error in valgrind
         puts("[   Server   ] Killing logs thread");
         pthread_cancel(logThread);
         pthread_join(logThread, NULL);
