@@ -30,6 +30,9 @@ void getFileType(char* pathWithBase, char* ret) {
     else if (strcmp(strFileExtension, "css") == 0) {
         strcpy(ret, "Content-Type: text/css\n");
     }
+    else if (strcmp(strFileExtension, "svg") == 0) {
+        strcpy(ret, "Content-Type: image/svg+xml\n");
+    }
     else if (strcmp(strFileExtension, "txt") == 0) {
         strcpy(ret, "Content-Type: text/plain\n");
     }
