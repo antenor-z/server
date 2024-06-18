@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-Wall -pedantic -g3
+CFLAGS=-Wall -pedantic -pthread
 SRCS=dequeue.c enqueue.c getFileType.c handleData.c insertLog.c insertStats.c main.c queue.c server.c utils.c debug.c
 OBJS=$(SRCS:.c=.o)
 EXEC=a4server
