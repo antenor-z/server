@@ -73,6 +73,10 @@ int main(int argc, char** argv) {
         log = NULL;
     }
 
+    if (log == NULL && isVerbose) {
+        panic(1, "If using verbose, you need to also use the logs.");
+    }
+
     /* Sanitization */
     char* s = port;
     while (*s) {
