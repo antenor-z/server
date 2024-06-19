@@ -59,7 +59,7 @@ void* handleData(void* args) {
     DIR *dir;
     if ((dir = opendir(pathWithBase)) != 0) {
         closedir(dir);
-        enqueue(queue, "[ Thread %lx ]  A folder was requested, return index.html of that folder\n", pthread_self());
+        enqueue(queue, "[  Thread %lx  ] A folder was requested, return index.html of that folder\n", pthread_self());
         strcat(pathWithBase, "/index.html");
     }
 
@@ -82,19 +82,21 @@ void* handleData(void* args) {
         fseek(fp, 0L, 0);
 
         char strContentLen[40];
-        sprintf(strContentLen, "Content-Length: %ld\n", fsize);
+        sprintf(strContentLen, "Content-Length: %ld", fsize);
         strcat(headers, strContentLen);
+        strcat(headers, "\n");
 
         /* Set file type */
         char strContentType[40];
         getFileType(pathWithBase, strContentType);
         strcat(headers, strContentType);
+        strcat(headers, "\n");
 
         strcat(headers, SEPARATOR);
 
-        debug(queue, "File '%s' was found", pathWithBase);
-        debug(queue, "  Size: %s", strContentLen);
-        debug(queue, "  MIME: %s", strContentType);
+        debug(queue, "[  Thread %lx  ] File '%s' was found", pthread_self(), pathWithBase);
+        debug(queue, "[  Thread %lx  ] Size: %s", pthread_self(), strContentLen);
+        debug(queue, "[  Thread %lx  ] MIME: %s", pthread_self(), strContentType);
     }
 
     write(socket, headers, strlen(headers));
@@ -108,7 +110,7 @@ void* handleData(void* args) {
     }
 
     char* dt = datetime();
-    enqueue(queue, "[ Thread %lx ] %s (%s) %s \"%s\"\n", pthread_self(), dt, hostaddr, status, pathWithBase);
+    enqueue(queue, "[  Thread %lx  ] %s (%s) %s \"%s\"\n", pthread_self(), dt, hostaddr, status, pathWithBase);
     free(dt);
     enqueue(statsQueue, pathWithBase);
 
